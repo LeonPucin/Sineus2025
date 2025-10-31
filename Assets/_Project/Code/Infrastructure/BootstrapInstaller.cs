@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using DoubleDCore.Ad;
+﻿using DoubleDCore.Ad;
 using DoubleDCore.Ad.Base;
 using DoubleDCore.Analytics;
 using DoubleDCore.Automation;
@@ -24,15 +23,6 @@ using DoubleDCore.Storage;
 using DoubleDCore.Storage.Base;
 using Game.Input;
 using Game.Input.Maps;
-#if UNITY_WEBGL
-using GamePush;
-using GamePush.Save;
-using GamePush.Ad;
-using GamePush.Donation;
-using GamePush.Community;
-using GamePush.Localization;
-using Yandex.Analytics;
-#endif
 using Infrastructure.States;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -55,10 +45,6 @@ namespace Infrastructure
         {
             base.Start();
 
-#if UNITY_WEBGL && !UNITY_EDITOR
-            await GP_Init.Ready.AsUniTask();
-            await GamePushTask.Sync();
-#endif
             Initialize();
         }
 
@@ -102,19 +88,11 @@ namespace Infrastructure
             Container.Bind<IResourcesContainer>().To<ResourcesContainer>().AsSingle();
             Container.Bind<IGameObjectFinder>().To<GameObjectFinder>().AsSingle();
             Container.Bind<ILocalizationService>().To<DefaultLocalizationService>().AsSingle();
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-            Container.Bind<IAdvertisingService>().To<GamePushAdService>().AsSingle();
-            Container.Bind<IDonationService>().To<GamePushDonationService>().AsSingle();
-            Container.Bind<ILeaderboardService>().To<GamePushLeaderboardService>().AsSingle();
-            Container.Bind<ILocalizationService>().To<GamePushLocalization>().AsSingle();
-            Container.Bind<IMetricService>().To<YandexMetricService>().AsSingle();
-#else
+            
             Container.Bind<IAdvertisingService>().To<MockAdvertisingService>().AsSingle();
             Container.Bind<IDonationService>().To<MockDonationService>().AsSingle();
             Container.Bind<ILeaderboardService>().To<MockLeaderboardService>().AsSingle();
             Container.Bind<IMetricService>().To<MockMetricService>().AsSingle();
-#endif
 
             Container.Bind<IInitializeService>().To<InitializeService>().AsSingle();
 
@@ -144,24 +122,11 @@ namespace Infrastructure
 
         private void BindSaveController()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            Container.Bind<ISaveController>().To<GamePushSaver>().AsSingle();
-#else
             Container.Bind<ISaveController>().To<FileSaver>().AsSingle();
-#endif
         }
 
         private void SetSettings()
         {
-#if UNITY_EDITOR
-            Application.targetFrameRate = 1000;
-#endif
-#if UNITY_ANDROID && !UNITY_EDITOR
-            Application.targetFrameRate = 60;
-#endif
-#if UNITY_WEBGL && !UNITY_EDITOR
-            Application.targetFrameRate = 60;
-#endif
         }
     }
 }
