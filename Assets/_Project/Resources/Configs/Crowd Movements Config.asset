@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3d25d32e284d2ebbf5748ed28a393f, type: 3}
+  m_Name: Crowd Movements Config
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _idleMovementConfig: {fileID: 11400000, guid: 5a28608dfaa38a74abba7d2f1c7ad961, type: 2}
+  _heresyMovementConfig: {fileID: 11400000, guid: f6f381f9ac0184d408804e58bd3d21fb, type: 2}
+  _possibleMovements:
+  - {fileID: 11400000, guid: 645c33ed8489d6e4cb6e019de6802c82, type: 2}
+  - {fileID: 11400000, guid: 611a8739ed322fc4bb73fd8c89f0bbfb, type: 2}
+  - {fileID: 11400000, guid: 247c8558ee775b748843cbc604758589, type: 2}
+  - {fileID: 11400000, guid: 16a6ed5c7a122a44eb8f2aac58f5838a, type: 2}
+  - {fileID: 11400000, guid: 1ca4ea91fbfc34d40a84e13aa1cf6007, type: 2}
+  - {fileID: 11400000, guid: 3db2ffc3f85c44247ba32299211b3b80, type: 2}
+  - {fileID: 11400000, guid: 6fac0b506258ecd4e88675f849e732ec, type: 2}
+  - {fileID: 11400000, guid: 3f0f7505ea040a340bf30f57d61ab42b, type: 2}
+  - {fileID: 11400000, guid: a5b6d9da0e2c3dc45bf6a5db2d25edd3, type: 2}
+  - {fileID: 11400000, guid: fb392fa4be9a5b041b6ef2a4581527e2, type: 2}

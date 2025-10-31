@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: movement/1
   _animationClip: {fileID: 7400000, guid: f31f9a26d8fd33d4695e878c81840ab3, type: 2}
+  _difficultyPoints: 0

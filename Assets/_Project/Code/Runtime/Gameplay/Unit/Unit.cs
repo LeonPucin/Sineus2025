@@ -1,21 +1,31 @@
-﻿using Gameplay.Movements;
+﻿using TMPro;
 using UnityEngine;
 
-namespace Gameplay.Unit
+namespace Gameplay.Units
 {
     public class Unit : MonoBehaviour
     {
-        [SerializeField] private UnitConfig _config;
-        
-        [Header("Components")]
-        [SerializeField] private MovementsComponent _movements;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private bool _isInteractable;
 
-        public MovementsComponent Movements => _movements;
+        [Header("Debug settings")] 
+        [SerializeField] private bool _debug;
+        [SerializeField] private TMP_Text _debugTitle;
 
-        [Zenject.Inject]
-        private void Init()
+        public UnitState CurrentState { get; private set; } = UnitState.Normal;
+        public bool IsInteractable => _isInteractable;
+
+        public void PlayMovement(AnimationClip animationClip)
         {
-            _movements.Init(_config);
+            _animator.Play(animationClip.name);
+            
+            if (_debug)
+                _debugTitle.text = animationClip.name;
+        }
+
+        public void SetState(UnitState state)
+        {
+            CurrentState = state;
         }
     }
 }

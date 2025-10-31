@@ -7,8 +7,10 @@ namespace Gameplay.Movements
     public class MovementConfig : IdentifyingScriptable
     {
         [SerializeField] private AnimationClip _animationClip;
+        [SerializeField] private int _difficultyPoints;
         
         public AnimationClip AnimationClip => _animationClip;
+        public int DifficultyPoints => _difficultyPoints;
         
         protected override string GetIDPrefix()
         {

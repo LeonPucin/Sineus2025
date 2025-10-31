@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70824f44f72e4244bd9fbf49d1ebcbe3, type: 3}
+  m_Name: Unit Spawner Config
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  _unitPrefabs:
+  - {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+  - {fileID: 2243372388136024068, guid: 6b704f50015c17148adbddee6862b4c9, type: 3}
+  - {fileID: 1620729736671831550, guid: 50c9eba3675e985468f0442e40e99b40, type: 3}
+  - {fileID: 8977104810947905249, guid: 1654736a93eae4646acba1eb125a9e79, type: 3}
+  _brokenStates: 010000000200000003000000

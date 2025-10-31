@@ -2,7 +2,7 @@
 
 namespace Gameplay.Movements
 {
-    public class MoveSequence
+    public class MovementSequence
     {
         private List<MovementConfig> _movements = new List<MovementConfig>();
         
