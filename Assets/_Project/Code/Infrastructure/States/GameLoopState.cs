@@ -1,9 +1,12 @@
 ﻿using DoubleDCore.Automation.Base;
+using DoubleDCore.Configuration;
 using DoubleDCore.Jurisdiction.Base;
 using DoubleDCore.Localization.Base;
 using DoubleDCore.Periphery.Base;
 using DoubleDCore.Storage.Base;
 using Game.Input.Maps;
+using Gameplay.Movements;
+using Gameplay.Unit;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -31,6 +34,8 @@ namespace Infrastructure.States
 
         public void Enter()
         {
+            RegisterConfigs();
+            
             _localeSave = _diContainer.Instantiate<LocaleSave>();
             _saveController.Subscribe(_localeSave);
 
@@ -47,6 +52,15 @@ namespace Infrastructure.States
 
             _gameplayBuild.Dispose();
             _diContainer.Unbind<IBuild>();
+        }
+
+        private void RegisterConfigs()
+        {
+            var configsResource = _diContainer.Resolve<IResourcesContainer>()
+                .GetResource<ScriptableConfigsResource>();
+            
+            _diContainer.Bind<MovementConfigsCatalog>().FromInstance(configsResource.Get<MovementConfigsCatalog>()).AsSingle();
+            _diContainer.Bind<UnitConfigsCatalog>().FromInstance(configsResource.Get<UnitConfigsCatalog>()).AsSingle();
         }
     }
 }

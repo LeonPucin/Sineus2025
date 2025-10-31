@@ -52,5 +52,21 @@ namespace DoubleDCore.Identification
             EditorUtility.SetDirty(this);
         }
 #endif
+        
+        public static bool operator ==(IdentifyingScriptable a, IdentifyingScriptable b)
+        {
+            if (ReferenceEquals(a, b))
+                return true;
+
+            if (a is null || b is null)
+                return false;
+            
+            return a.ID == b.ID;
+        }
+        
+        public static bool operator !=(IdentifyingScriptable a, IdentifyingScriptable b)
+        {
+            return !(a == b);
+        }
     }
 }
