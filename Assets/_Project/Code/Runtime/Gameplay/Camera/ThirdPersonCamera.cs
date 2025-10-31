@@ -1,6 +1,9 @@
+using DoubleDCore.Periphery.Base;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Zenject;
 
-namespace Game.Gameplay.CameraControls
+namespace Gameplay
 {
     public class ThirdPersonCamera : MonoBehaviour
     {
@@ -12,12 +15,20 @@ namespace Game.Gameplay.CameraControls
         [SerializeField] private float _minDistance = 2.0f;
         [SerializeField] private float _maxDistance = 10.0f;
         [SerializeField] private float _minVerticalAngle = -90.0f; // Минимальный угол поворота вверх
-        [SerializeField] private float _maxVerticalAngle = 90.0f;  // Максимальный угол поворота вниз
+        [SerializeField] private float _maxVerticalAngle = 90.0f; // Максимальный угол поворота вниз
         [SerializeField] private float _scrollSpeed = 2.0f; // Скорость изменения дистанции при скролле
         [SerializeField] private LayerMask _collisionLayers;
-        
+
+        private InputControls _inputControls;
+
+        [Inject]
+        private void Init(IInputService<InputControls> inputServices)
+        {
+            _inputControls = inputServices.GetInputProvider();
+        }
+
         private Vector3 _targetOffsetted => _target.TransformPoint(_offset);
-        
+
         private Vector3 _currentRotation;
         private bool _isRotating;
         private float _targetDistance;
@@ -26,20 +37,28 @@ namespace Game.Gameplay.CameraControls
         {
             _rotationSpeed = value;
         }
-        
+
         private void OnEnable()
         {
             _targetDistance = _distance;
+
+            _inputControls.Character.Aim.started += ToggleRotation;
+            _inputControls.Character.Aim.canceled += ToggleRotation;
+            _inputControls.Character.Scroll.performed += AdjustCameraDistance;
+        }
+
+        private void OnDisable()
+        {
+            _inputControls.Character.Aim.started -= ToggleRotation;
+            _inputControls.Character.Aim.canceled -= ToggleRotation;
+            _inputControls.Character.Scroll.performed -= AdjustCameraDistance;
         }
 
         private void LateUpdate()
         {
-            // _isRotating = _inputProvider.IsAimPressed();
-            // float scrollValue = _inputProvider.GetScrollDelta();
-            
             if (_isRotating)
             {
-                // RotateCamera(_inputProvider.GetAimDirection());
+                RotateCamera(_inputControls.Character.MouseDelta.ReadValue<Vector2>());
                 RotateCameraPosition();
             }
             else
@@ -47,14 +66,18 @@ namespace Game.Gameplay.CameraControls
                 FollowTarget();
             }
 
-            // AdjustCameraDistance(scrollValue);
             RaycastToAvoidClipping();
+        }
+
+        private void ToggleRotation(InputAction.CallbackContext obj)
+        {
+            _isRotating = obj.ReadValueAsButton();
         }
 
         private void RotateCamera(Vector2 mouseInput)
         {
             if (!_isRotating) return;
-            
+
             _currentRotation.x += -mouseInput.y * _rotationSpeed;
             _currentRotation.y += mouseInput.x * _rotationSpeed;
 
@@ -93,9 +116,10 @@ namespace Game.Gameplay.CameraControls
                 _distance = Mathf.Lerp(_distance, _targetDistance, Time.deltaTime * 5f);
             }
         }
-        
-        private void AdjustCameraDistance(float scrollValue)
+
+        private void AdjustCameraDistance(InputAction.CallbackContext obj)
         {
+            float scrollValue = obj.ReadValue<Vector2>().y;
             _targetDistance -= scrollValue * _scrollSpeed * Time.deltaTime;
             _targetDistance = Mathf.Clamp(_targetDistance, _minDistance, _maxDistance);
 

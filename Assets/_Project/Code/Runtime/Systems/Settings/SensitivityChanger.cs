@@ -1,4 +1,4 @@
-﻿using Game.Gameplay.CameraControls;
+﻿using Gameplay;
 using UnityEngine;
 using Zenject;
 
