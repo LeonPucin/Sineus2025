@@ -1,4 +1,5 @@
-﻿using Gameplay.UnitCrowd;
+﻿using Gameplay.Skills;
+using Gameplay.UnitCrowd;
 using Gameplay.Units;
 using Systems.Mocks;
 using UnityEngine;
@@ -16,9 +17,11 @@ namespace Core.DI
             
             Container.Bind<SpawnPlaceholder>().FromComponentInHierarchy().AsSingle();
             Container.Bind<CrowdPlaceController>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<SkillUseConfirmator>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<UnitSpawner>().FromNew().AsSingle();
             Container.Bind<DifficultyConverter>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<SkillActivator>().AsSingle();
             
             Container.Bind<CrowdMovementsController>().FromNew().AsSingle();
             Container.Bind<CrowdController>().FromNew().AsSingle();

@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 2081531121316543802}
   - component: {fileID: 2346445873585289713}
   - component: {fileID: 1112409061243287836}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DefaultUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,3 +389,4 @@ MonoBehaviour:
   _isInteractable: 1
   _debug: 1
   _debugTitle: {fileID: 5810973458132770476}
+  _debugMaterial: {fileID: 2100000, guid: 2e659ae2c41d9154f870cf0aa0e5b59d, type: 2}

@@ -19,7 +19,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "3d76f65a-94a7-4117-9cdc-b9044f506e26",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -28,7 +28,16 @@
                     "name": "Aim",
                     "type": "Button",
                     "id": "1680a65f-3de0-45b5-97ac-796afa9e436b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "00930a18-433c-47e0-819a-d04791f83b0d",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -264,6 +273,28 @@
                     "processors": "",
                     "groups": "Mobile",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cf0d739-da95-486b-b937-5279deb4be44",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b5b9913-efa4-41b9-9b7b-ba8973c5dcb6",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

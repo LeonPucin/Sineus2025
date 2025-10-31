@@ -57,9 +57,6 @@ namespace Gameplay.UnitCrowd
                         resultClip = _config.PossibleMovements[Random.Range(0, _config.PossibleMovements.Length)]
                             .AnimationClip;
                         break;
-                    case UnitState.Heresy:
-                        resultClip = _config.HeresyMovementConfig.AnimationClip;
-                        break;
                     default:
                         resultClip = null;
                         Debug.LogError($"Unknown state {unit.CurrentState}");
