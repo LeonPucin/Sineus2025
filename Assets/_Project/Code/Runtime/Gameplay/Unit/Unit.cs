@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace Gameplay.Units
@@ -7,6 +6,7 @@ namespace Gameplay.Units
     public class Unit : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
+        [SerializeField] private Renderer _renderer;
         [SerializeField] private bool _isInteractable;
 
         [Header("Debug settings")] 
@@ -15,14 +15,12 @@ namespace Gameplay.Units
         [SerializeField] private Material _debugMaterial;
 
         private Material _defaultMaterial;
-        private Renderer _renderer;
 
         public UnitState CurrentState { get; private set; } = UnitState.Normal;
         public bool IsInteractable => _isInteractable;
 
         private void Awake()
         {
-            _renderer = GetComponent<Renderer>();
             _defaultMaterial = _renderer.sharedMaterial;
         }
 
