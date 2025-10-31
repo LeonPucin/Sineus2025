@@ -15,7 +15,7 @@ namespace Game.Input
         private InputAction _action;
 
         [Inject]
-        private void Init(IInputServices<InputControls> inputServices)
+        private void Init(IInputService<InputControls> inputServices)
         {
             _inputControls = inputServices.GetInputProvider();
         }

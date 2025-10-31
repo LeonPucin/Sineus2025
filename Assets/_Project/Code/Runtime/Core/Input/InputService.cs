@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Input
 {
-    public class InputService : IInputServices<InputControls>
+    public class InputService : IInputService<InputControls>
     {
         private readonly InputControls _inputControls;
 
