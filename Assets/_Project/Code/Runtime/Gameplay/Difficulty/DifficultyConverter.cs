@@ -6,5 +6,10 @@
         {
             return 0f; //TODO: add real converting based on max difficulty
         }
+        
+        public int GetCrowdSize(int difficultyPoints)
+        {
+            return difficultyPoints; //TODO: add real converting based on max difficulty
+        }
     }
 }
