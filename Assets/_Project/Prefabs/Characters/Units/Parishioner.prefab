@@ -1132,6 +1132,122 @@ PrefabInstance:
       propertyPath: _outlinable
       value: 
       objectReference: {fileID: 6904376121533368604}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._outlinable
+      value: 
+      objectReference: {fileID: 6904376121533368604}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._highlightOutline.Blur
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._highlightOutline.Dilate
+      value: 0.507
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._highlightOutline.Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._highlightOutline.Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._highlightOutline.Color.g
+      value: 0.8490566
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._highlightOutline.Color.r
+      value: 0.09225645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Keys.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: 'serializationData.PrefabModifications.Array.data[0]'
+      value: '"path":"_outlineComponent._outlinable","value":$eref:0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: serializationData.ReferencedUnityObjects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: '_outlineComponent._statesOutlines.m_Keys.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: '_outlineComponent._statesOutlines.m_Keys.Array.data[1]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[0].Blur
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[1].Blur
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[0].Dilate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[1].Dilate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[0].Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[0].Color.b
+      value: 0.8352941
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[0].Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[0].Color.r
+      value: 0.8122055
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[1].Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[1].Color.b
+      value: 2.762264
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[1].Color.g
+      value: 0.41852576
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: _outlineComponent._statesOutlines.m_Values.Array.data[1].Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112409061243287836, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
+      propertyPath: 'serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6904376121533368604}
     - target: {fileID: 4459049620852356479, guid: c985e53cf93863e4aa9154e0399ef2d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

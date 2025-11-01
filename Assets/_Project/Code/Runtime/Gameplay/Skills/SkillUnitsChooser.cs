@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Units;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Gameplay.Skills
         private readonly LayerMask _areaMask;
         private readonly Camera _camera;
         private readonly List<Unit> _chosenUnits = new();
+
+        public event Action<bool, Vector3, float> AreaChecked;
 
         public SkillUnitsChooser(float maxDistance, LayerMask unitMask, LayerMask areaMask, Camera camera)
         {
@@ -31,7 +34,7 @@ namespace Gameplay.Skills
         {
             var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
             var isHit = Physics.Raycast(ray, out var hitInfo, _maxDistance, _unitMask);
-            
+
             if (isHit)
             {
                 var unit = hitInfo.collider.GetComponent<Unit>();
@@ -52,6 +55,8 @@ namespace Gameplay.Skills
                 var units = unitColliders.Select(u => u.GetComponent<Unit>()).Where(u => u.IsInteractable);
                 _chosenUnits.AddRange(units);
             }
+            
+            AreaChecked?.Invoke(isHit, hitInfo.point, config.Radius);
         }
 
         public List<Unit> GetResult()

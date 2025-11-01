@@ -19,6 +19,8 @@ namespace Gameplay.Skills
         private List<Unit> _lastResult;
 
         public event Action<SkillConfig, IEnumerable<Unit>> Confirmed;
+        public event Action Cancelled;
+        public event Action<bool, Vector3, float> AreaChecked;
 
         [Zenject.Inject]
         private void Init(IInputService<InputControls> inputService)
@@ -26,7 +28,22 @@ namespace Gameplay.Skills
             _inputControls = inputService.GetInputProvider();
             _unitsChooser = new SkillUnitsChooser(100f, _unitMask, _areaMask, _camera);
         }
+
+        private void OnEnable()
+        {
+            _unitsChooser.AreaChecked += OnAreaChecked;
+        }
+
+        private void OnDisable()
+        {
+            _unitsChooser.AreaChecked -= OnAreaChecked;
+        }
         
+        private void OnAreaChecked(bool isHit, Vector3 position, float radius)
+        {
+            AreaChecked?.Invoke(isHit, position, radius);
+        }
+
         public void ConfirmUse(SkillConfig skill)
         {
             _currentSkill = skill;
@@ -40,14 +57,20 @@ namespace Gameplay.Skills
             if (_inputControls.Character.Aim.WasPerformedThisFrame() ||
                 _inputControls.Character.Esc.WasPerformedThisFrame())
             {
-                _currentSkill = null;
                 DisableLastHighlight();
+                
+                Cancelled?.Invoke();
+                _currentSkill = null;
                 return;
             }
 
             if (_inputControls.Character.Fire.WasPerformedThisFrame())
             {
+                if (_lastResult.Count == 0)
+                    return;
+                
                 DisableLastHighlight();
+                
                 Confirmed?.Invoke(_currentSkill, _lastResult);
                 _currentSkill = null;
             }

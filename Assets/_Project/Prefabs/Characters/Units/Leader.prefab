@@ -1168,6 +1168,22 @@ PrefabInstance:
       propertyPath: _isInteractable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7740060578664647276, guid: a36c66a4245044d8485673902f8755aa, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 7740060578664647276, guid: a36c66a4245044d8485673902f8755aa, type: 3}
+    - target: {fileID: 7740060578664647276, guid: a36c66a4245044d8485673902f8755aa, type: 3}
+      propertyPath: _outlineComponent._outlinable
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060578664647276, guid: a36c66a4245044d8485673902f8755aa, type: 3}
+      propertyPath: serializationData.ReferencedUnityObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060578664647276, guid: a36c66a4245044d8485673902f8755aa, type: 3}
+      propertyPath: 'serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5391205637564277727, guid: a36c66a4245044d8485673902f8755aa, type: 3}

@@ -24,5 +24,5 @@ MonoBehaviour:
   _name: 
   _icon: {fileID: 0}
   _description: 
-  _targetState: 1
   _radius: 5
+  _skillTargets: 0200000001000000

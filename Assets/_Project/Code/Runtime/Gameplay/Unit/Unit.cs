@@ -10,10 +10,11 @@ namespace Gameplay.Units
     public class Unit : SerializedMonoBehaviour
     {
         [SerializeField] private Animator _animator;
-        [SerializeField] private Renderer _renderer;
-        [SerializeField] private Outlinable _outlinable;
         [SerializeField] private bool _isInteractable;
 
+        [Header("Components")] 
+        [SerializeField] private OutlineComponent _outlineComponent;
+        
         [Header("Debug settings")] 
         [SerializeField] private bool _debug;
         [SerializeField] private TMP_Text _debugTitle;
@@ -49,17 +50,19 @@ namespace Gameplay.Units
         {
             var oldState = CurrentState;
             CurrentState = state;
-            
+
             if (state != oldState)
+            {
+                if (_isInteractable)
+                    _outlineComponent.ChangeOutline(state);
+                
                 StateChanged?.Invoke(this, oldState);
+            }
         }
 
         public void SetHighlighted(bool highlighted)
         {
-            if (_outlinable)
-            {
-                _outlinable.enabled = highlighted;
-            }
+            _outlineComponent.SetHighlight(highlighted);
         }
     }
 }

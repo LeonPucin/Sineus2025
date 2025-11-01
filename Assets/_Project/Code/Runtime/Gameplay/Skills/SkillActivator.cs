@@ -11,11 +11,13 @@ namespace Gameplay.Skills
     {
         private readonly SkillUseConfirmator _confirmator;
         private readonly UnitSpawnerConfig _spawnerConfig;
+        private readonly SkillUser _skillUser;
 
         public SkillActivator(SkillUseConfirmator confirmator, UnitSpawnerConfig spawnerConfig)
         {
             _confirmator = confirmator;
             _spawnerConfig = spawnerConfig;
+            _skillUser = new SkillUser(_spawnerConfig);
         }
         
         public void Activate(SkillConfig skill)
@@ -32,10 +34,8 @@ namespace Gameplay.Skills
         {
             foreach (var unit in units)
             {
-                if (unit.CurrentState == skillConfig.TargetState)
-                    unit.SetState(UnitState.Normal);
-                else
-                    unit.SetState(_spawnerConfig.GetRandomBrokenState());
+                _skillUser.SetTarget(unit);
+                skillConfig.Accept(_skillUser);
             }
         }
 
