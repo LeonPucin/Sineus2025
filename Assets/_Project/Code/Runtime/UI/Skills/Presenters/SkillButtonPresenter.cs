@@ -20,9 +20,9 @@ namespace UI.Skills.Presenters
         private readonly BoolReactiveProperty _isInUse = new(false);
         private readonly CompositeDisposable _disposables = new();
         private readonly Key _alterKey;
-        private readonly CancellationTokenSource _cts = new();
-        private readonly InputControls _inputControls;
 
+        private CancellationTokenSource _cts = new();
+        
         public IReadOnlyReactiveProperty<string> CooldownLeftTitle => _cooldownLeftTitle;
         public IReadOnlyReactiveProperty<float> CooldownLeftPart => _cooldownLeftPart;
         public IReadOnlyReactiveProperty<bool> IsInCooldown => _isInCooldown;
@@ -30,10 +30,8 @@ namespace UI.Skills.Presenters
         public ReactiveCommand ConfirmCommand { get; }
         public string AlterKeyName { get; }
 
-        public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill,
-            IInputService<InputControls> inputService)
+        public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill)
         {
-            _inputControls = inputService.GetInputProvider();
             _skillActivator = skillActivator;
             _connectedSkill = connectedSkill;
             _alterKey = connectedSkill.AlterKey;
@@ -45,27 +43,11 @@ namespace UI.Skills.Presenters
             _skillActivator.CooldownStarted += OnCooldownStarted;
             _skillActivator.CooldownEnded += OnCooldownEnded;
             _skillActivator.CurrentSkillChanged += OnCurrentSkillChanged;
-
-            _ = ListenForAlterKeyAsync(_cts.Token);
         }
 
         private void OnCurrentSkillChanged(SkillConfig newSkill)
         {
             _isInUse.Value = newSkill == _connectedSkill;
-        }
-
-        private async UniTask ListenForAlterKeyAsync(CancellationToken token)
-        {
-            while (token.IsCancellationRequested == false)
-            {
-                if (_inputControls.Character.enabled == false)
-                    continue;
-                
-                if (Keyboard.current[_alterKey].wasReleasedThisFrame && ConfirmCommand.CanExecute.Value)
-                    ConfirmCommand.Execute();
-                
-                await UniTask.Yield(cancellationToken: token);
-            }
         }
 
         private void ActivateSkill(Unit _)
@@ -81,7 +63,16 @@ namespace UI.Skills.Presenters
             _isInCooldown.Value = true;
             _isNotInCooldown.Value = false;
             _cooldownLeftPart.Value = 1;
-            _ = UpdateCooldownState();
+
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+                _cts = null;
+            }
+
+            _cts = new();
+            _ = UpdateCooldownState(_cts.Token);
         }
         
         private void OnCooldownEnded(SkillConfig skill)
@@ -95,17 +86,17 @@ namespace UI.Skills.Presenters
             _cooldownLeftTitle.Value = "";
         }
 
-        private async UniTask UpdateCooldownState()
+        private async UniTask UpdateCooldownState(CancellationToken token)
         {
             float totalCooldown = _connectedSkill.Cooldown;
             
-            while (_cooldownLeftPart.Value > 0)
+            while (_cooldownLeftPart.Value > 0 && !token.IsCancellationRequested)
             {
                 var cooldownLeft = _skillActivator.GetCooldownLeft(_connectedSkill);
                 _cooldownLeftTitle.Value = $"{cooldownLeft:F1}";
                 _cooldownLeftPart.Value = cooldownLeft / totalCooldown;
                 
-                await UniTask.Yield();
+                await UniTask.Yield(cancellationToken: token);
             }
         }
 
@@ -114,8 +105,14 @@ namespace UI.Skills.Presenters
             _skillActivator.CooldownStarted -= OnCooldownStarted;
             _skillActivator.CooldownEnded -= OnCooldownEnded;
             _skillActivator.CurrentSkillChanged -= OnCurrentSkillChanged;
-            _cts.Cancel();
-            _cts.Dispose();
+            
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+                _cts = null;
+            }
+            
             _disposables.Dispose();
         }
     }

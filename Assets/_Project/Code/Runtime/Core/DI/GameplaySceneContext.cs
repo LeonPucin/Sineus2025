@@ -1,4 +1,5 @@
-﻿using Gameplay.Quests;
+﻿using Game.Input;
+using Gameplay.Quests;
 using Gameplay.Session;
 using Gameplay.Skills;
 using Gameplay.UnitCrowd;
@@ -21,6 +22,8 @@ namespace Core.DI
             Container.Bind<SpawnPlaceholder>().FromComponentInHierarchy().AsSingle();
             Container.Bind<CrowdPlaceController>().FromComponentInHierarchy().AsSingle();
             Container.Bind<SkillUseConfirmator>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<MainThreadInputCommander>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<AlterKeysListener>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<SessionInfo>().AsSingle();
             Container.Bind<StartLevelQuestConditionChecker>().AsSingle();

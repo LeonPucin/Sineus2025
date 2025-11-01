@@ -1,5 +1,8 @@
 ﻿using DoubleDCore.Periphery.Base;
 using DoubleDCore.UI.Base;
+using Game.Input;
+using Game.Input.Maps;
+using Gameplay.Skills;
 using Gameplay.UnitCrowd;
 using UI.Pages;
 using UI.Pages.SkillsPage;
@@ -13,25 +16,24 @@ namespace Gameplay.Session
         private readonly IUIManager _uiManager;
         private readonly DifficultyConverter _difficultyConverter;
         private readonly LevelTimer _levelTimer;
-        private readonly InputControls _inputControls;
-        
-        public LevelStarter(SessionInfo sessionInfo, IInputService<InputControls> inputService,
-            CrowdController crowdController, IUIManager uiManager, DifficultyConverter difficultyConverter,
-            LevelTimer levelTimer)
+        private readonly AlterKeysListener _alterKeysListener;
+        private readonly MainThreadInputCommander _mainThreadInputCommander;
+
+        public LevelStarter(SessionInfo sessionInfo, CrowdController crowdController, IUIManager uiManager,
+            DifficultyConverter difficultyConverter, LevelTimer levelTimer, AlterKeysListener alterKeysListener,
+            MainThreadInputCommander mainThreadInputCommander)
         {
             _sessionInfo = sessionInfo;
             _crowdController = crowdController;
             _uiManager = uiManager;
             _difficultyConverter = difficultyConverter;
             _levelTimer = levelTimer;
-            _inputControls = inputService.GetInputProvider();
+            _alterKeysListener = alterKeysListener;
+            _mainThreadInputCommander = mainThreadInputCommander;
         }
 
         public void SetupLevel()
         {
-            _inputControls.UI.Disable();
-            _inputControls.Character.Enable();
-            
             _uiManager.ClosePage<PlayerChoosePage>();
             _uiManager.OpenPage<StartGamePage>();
             
@@ -44,21 +46,24 @@ namespace Gameplay.Session
         {
             _uiManager.ClosePage<StartGamePage>();
             _uiManager.OpenPage<GameplayPage>();
+            
+            _mainThreadInputCommander.SwitchMap<CharacterMap>();
 
             _levelTimer.Finished += StopLevel;
             
             _crowdController.Start();
             _levelTimer.Start();
+            _alterKeysListener.enabled = true;
         }
 
         public void StopLevel()
         {
             _levelTimer.Finished -= StopLevel;
             
-            _inputControls.Character.Disable();
-            _inputControls.UI.Enable();
+            _mainThreadInputCommander.SwitchMap<UIMap>();
             
             _crowdController.Stop();
+            _alterKeysListener.enabled = false;
             
             _uiManager.ClosePage<GameplayPage>();
             

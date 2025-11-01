@@ -1700,6 +1700,8 @@ GameObject:
   - component: {fileID: 897709157}
   - component: {fileID: 897709156}
   - component: {fileID: 897709158}
+  - component: {fileID: 897709160}
+  - component: {fileID: 897709159}
   m_Layer: 0
   m_Name: '[SYSTEMS]'
   m_TagString: Untagged
@@ -1755,6 +1757,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _indicatorObject: {fileID: 759216493}
   _useConfirmator: {fileID: 897709156}
+--- !u!114 &897709159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897709155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe4ddabef0d4d55b6ed46f7c1388264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &897709160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897709155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf9d4faa4994ee8bc8065dde534db8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1043974931 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2810165422357550327, guid: b5049a4fbe1c04d2c9eef9e7523780c3, type: 3}

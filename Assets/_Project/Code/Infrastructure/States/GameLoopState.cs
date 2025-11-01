@@ -7,6 +7,7 @@ using DoubleDCore.Storage.Base;
 using Game.Input.Maps;
 using Gameplay.Movements;
 using Gameplay.Session;
+using Gameplay.Skills;
 using Gameplay.UnitCrowd;
 using Gameplay.Units;
 using UnityEngine.SceneManagement;
@@ -68,6 +69,7 @@ namespace Infrastructure.States
             _diContainer.Bind<CrowdConfig>().FromInstance(configsResource.Get<CrowdConfig>()).AsSingle();
             _diContainer.Bind<SessionConfig>().FromInstance(configsResource.Get<SessionConfig>()).AsSingle();
             _diContainer.Bind<DifficultyConfig>().FromInstance(configsResource.Get<DifficultyConfig>()).AsSingle();
+            _diContainer.Bind<SkillsCatalog>().FromInstance(configsResource.Get<SkillsCatalog>()).AsSingle();
         }
     }
 }

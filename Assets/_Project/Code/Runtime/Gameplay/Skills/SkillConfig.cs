@@ -1,4 +1,5 @@
 ﻿using DoubleDCore.Configuration.Base;
+using DoubleDCore.Identification;
 using Gameplay.Units;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Skills
 {
-    public abstract class SkillConfig : ScriptableConfig
+    public abstract class SkillConfig : IdentifyingScriptable
     {
         [SerializeField] private string _name;
         [SerializeField, PreviewField] private Sprite _icon;
@@ -21,5 +22,10 @@ namespace Gameplay.Skills
         public Key AlterKey => _alterKey;
         
         public abstract void Accept(ISkillVisitor visitor);
+
+        protected override string GetIDPrefix()
+        {
+            return "skill";
+        }
     }
 }
