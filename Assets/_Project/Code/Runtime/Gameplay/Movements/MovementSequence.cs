@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Gameplay.Movements
@@ -7,10 +8,12 @@ namespace Gameplay.Movements
     {
         private readonly MovementConfig[] _sequence;
         
-        public IReadOnlyList<MovementConfig> CurrentMovements => _sequence
+        public IReadOnlyList<MovementConfig> ValidSequence => _sequence
             .Where(x => x != null).ToList();
         
         public int Length => _sequence.Length;
+
+        public event Action<int> MovementChanged; 
 
         public MovementSequence(int len)
         {
@@ -25,11 +28,13 @@ namespace Gameplay.Movements
         public void SetMovement(int index, MovementConfig config)
         {
             _sequence[index] = config;
+            MovementChanged?.Invoke(index);
         }
 
         public void RemoveMovement(int index)
         {
             _sequence[index] = null;
+            MovementChanged?.Invoke(index);
         }
     }
 }

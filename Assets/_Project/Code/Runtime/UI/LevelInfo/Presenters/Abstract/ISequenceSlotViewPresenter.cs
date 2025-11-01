@@ -10,7 +10,5 @@ namespace UI.LevelInfo
         IReadOnlyReactiveProperty<Sprite> Icon { get; }
         ReactiveCommand RemoveRequest { get; }
         ReactiveCommand AddRequest { get; }
-        ReactiveCommand<MovementConfig> AddCommand { get; }
-        ReactiveCommand RemoveCommand { get; }
     }
 }

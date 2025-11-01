@@ -6,6 +6,5 @@ namespace UI.LevelInfo
     {
         IReadOnlyReactiveProperty<int> CurrentDifficulty { get; }
         int MaxDifficulty { get; }
-        ReactiveCommand<int> ChangeDifficultyCommand { get; }
     }
 }

@@ -1,7 +1,5 @@
-﻿using Gameplay.Movements;
-using Gameplay.Session;
+﻿using Gameplay.Session;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace UI.LevelInfo
@@ -21,7 +19,6 @@ namespace UI.LevelInfo
         
         public ReactiveCommand PlayCommand { get; } = new();
         public ReactiveCommand<int> AddMovementRequest { get; } = new();
-        public ReactiveCommand<(int, MovementConfig)> AddMovementCommand { get; } = new();
 
         public LevelInfoViewPresenter(DiContainer diContainer, SessionInfo sessionInfo)
         {
@@ -35,11 +32,6 @@ namespace UI.LevelInfo
                 AddMovementRequest.Execute(index);
             }).AddTo(_disposables);
             
-            AddMovementCommand.Subscribe((info) =>
-            {
-                CurrentSequenceViewPresenter.AddMovementCommand.Execute(info);
-            }).AddTo(_disposables);
-            
             _sessionInfo.LevelChanged += OnLevelChanged;
             OnLevelChanged();
         }
@@ -49,7 +41,6 @@ namespace UI.LevelInfo
             var currentLevel = _sessionInfo.CurrentLevel;
             _name.Value = currentLevel.Name;
             _description.Value = currentLevel.Description;
-            CurrentDifficultyViewPresenter.ChangeDifficultyCommand.Execute(0);
         }
         
         ~LevelInfoViewPresenter()

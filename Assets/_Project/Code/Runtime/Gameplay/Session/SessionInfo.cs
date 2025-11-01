@@ -14,13 +14,14 @@ namespace Gameplay.Session
         public MovementSequence CurrentSequence { get; private set; }
 
         public event Action LevelChanged;
+        public event Action<int> SequenceMovementChanged;
         
         public SessionInfo(SessionConfig config)
         {
             _config = config;
             _levels = _config.Levels;
             _currentLevelIndex = 0;
-            CurrentSequence = new MovementSequence(_config.SequenceSize);
+            CreateNewSequence();
         }
         
         public bool IsLastLevel()
@@ -31,8 +32,28 @@ namespace Gameplay.Session
         public void MoveToNextLevel()
         {
             _currentLevelIndex++;
-            CurrentSequence = new MovementSequence(_config.SequenceSize);
+            CreateNewSequence();
             LevelChanged?.Invoke();
+        }
+        
+        private void CreateNewSequence()
+        {
+            if (CurrentSequence != null)
+                CurrentSequence.MovementChanged -= OnMovementChanged;
+            
+            CurrentSequence = new MovementSequence(_config.SequenceSize);
+            CurrentSequence.MovementChanged += OnMovementChanged;
+        }
+        
+        private void OnMovementChanged(int index)
+        {
+            SequenceMovementChanged?.Invoke(index);
+        }
+        
+        ~SessionInfo()
+        {
+            if (CurrentSequence != null)
+                CurrentSequence.MovementChanged -= OnMovementChanged;
         }
     }
 }

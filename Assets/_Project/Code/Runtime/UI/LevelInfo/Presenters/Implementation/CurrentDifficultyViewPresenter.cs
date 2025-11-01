@@ -1,31 +1,42 @@
 ﻿using System.Linq;
 using Gameplay.Movements;
+using Gameplay.Session;
 using UniRx;
 
 namespace UI.LevelInfo
 {
     public class CurrentDifficultyViewPresenter : ICurrentDifficultyViewPresenter
     {
+        private readonly SessionInfo _sessionInfo;
         private readonly IntReactiveProperty _currentDifficulty = new(0);
-        private readonly CompositeDisposable _disposables = new();
         
         public IReadOnlyReactiveProperty<int> CurrentDifficulty => _currentDifficulty;
         public int MaxDifficulty { get; }
-        public ReactiveCommand<int> ChangeDifficultyCommand { get; } = new();
 
-        public CurrentDifficultyViewPresenter(MovementConfigsCatalog movementsCatalog)
+        public CurrentDifficultyViewPresenter(MovementConfigsCatalog movementsCatalog, SessionInfo sessionInfo)
         {
+            _sessionInfo = sessionInfo;
             MaxDifficulty = movementsCatalog.GetAllItems().Sum(x => x.DifficultyPoints);
 
-            ChangeDifficultyCommand.Subscribe((val) =>
-            {
-                _currentDifficulty.Value = val;
-            }).AddTo(_disposables);
+            _sessionInfo.SequenceMovementChanged += OnSequenceMovementChanged;
+            _sessionInfo.LevelChanged += OnLevelChanged;
         }
-        
+
+        private void OnLevelChanged()
+        {
+            _currentDifficulty.Value = 0;
+        }
+
+        private void OnSequenceMovementChanged(int _)
+        {
+            _currentDifficulty.Value = _sessionInfo.CurrentSequence.ValidSequence
+                .Sum(x => x.DifficultyPoints);
+        }
+
         ~CurrentDifficultyViewPresenter()
         {
-            _disposables.Dispose();
+            _sessionInfo.SequenceMovementChanged -= OnSequenceMovementChanged;
+            _sessionInfo.LevelChanged -= OnLevelChanged;
         }
     }
 }

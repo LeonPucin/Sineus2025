@@ -34,11 +34,6 @@ namespace UI.Pages
                 cardsViewPresenter.SelectCardCommand.Execute(index);
             }).AddTo(this);
             
-            cardsViewPresenter.SelectedCardEvent.Subscribe((info) =>
-            {
-                levelInfoViewPresenter.AddMovementCommand.Execute(info);
-            }).AddTo(this);
-            
             SetCanvasState(true);
         }
 

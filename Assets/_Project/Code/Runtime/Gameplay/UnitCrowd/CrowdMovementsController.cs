@@ -56,14 +56,14 @@ namespace Gameplay.UnitCrowd
         private void PlayNextMovement()
         {
             MovementStarting?.Invoke();
-            _lastMovement = _movementSequence.CurrentMovements[_currentMovementIndex];
+            _lastMovement = _movementSequence.ValidSequence[_currentMovementIndex];
             
             foreach (var unit in _units)
             {
                 PlayUnitMovement(unit);
             }
             
-            _currentMovementIndex = (_currentMovementIndex + 1) % _movementSequence.CurrentMovements.Count;
+            _currentMovementIndex = (_currentMovementIndex + 1) % _movementSequence.ValidSequence.Count;
             _ = _animationTimer.Start(_lastMovement.AnimationClip.length, PlayNextMovement);
         }
 
@@ -85,7 +85,7 @@ namespace Gameplay.UnitCrowd
             {
                 case UnitState.Invincible:
                 case UnitState.Normal:
-                    resultClip = _movementSequence.CurrentMovements[_currentMovementIndex].AnimationClip;
+                    resultClip = _movementSequence.ValidSequence[_currentMovementIndex].AnimationClip;
                     break;
                 case UnitState.Idle:
                     resultClip = _config.IdleMovementConfig.AnimationClip;

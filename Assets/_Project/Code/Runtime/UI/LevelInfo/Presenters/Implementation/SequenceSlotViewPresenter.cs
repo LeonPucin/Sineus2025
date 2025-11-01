@@ -1,4 +1,4 @@
-﻿using Gameplay.Movements;
+﻿using Gameplay.Session;
 using UniRx;
 using UnityEngine;
 
@@ -6,36 +6,52 @@ namespace UI.LevelInfo
 {
     public class SequenceSlotViewPresenter : ISequenceSlotViewPresenter
     {
-        private readonly CompositeDisposable _disposables = new();
+        private readonly SessionInfo _sessionInfo;
+        private readonly int _movementIndex;
         private readonly BoolReactiveProperty _hasMovement = new(false);
+        private readonly BoolReactiveProperty _hasNotMovement = new(true);
         private readonly ReactiveProperty<Sprite> _icon = new(null);
+        private readonly CompositeDisposable _disposables = new();
         
         public IReadOnlyReactiveProperty<bool> HasMovement => _hasMovement;
         public IReadOnlyReactiveProperty<Sprite> Icon => _icon;
         
-        public ReactiveCommand RemoveRequest { get; } = new();
-        public ReactiveCommand AddRequest { get; } = new();
+        public ReactiveCommand RemoveRequest { get; }
+        public ReactiveCommand AddRequest { get; }
         
-        public ReactiveCommand<MovementConfig> AddCommand { get; } = new();
-        public ReactiveCommand RemoveCommand { get; } = new();
-
-        public SequenceSlotViewPresenter()
+        public SequenceSlotViewPresenter(SessionInfo sessionInfo, int movementIndex)
         {
-            AddCommand.Subscribe((config) =>
-            {
-                _hasMovement.Value = true;
-                _icon.Value = config.Icon;
-            }).AddTo(_disposables);
+            _sessionInfo = sessionInfo;
+            _movementIndex = movementIndex;
             
-            RemoveCommand.Subscribe((_) =>
-            {
-                _hasMovement.Value = false;
-                _icon.Value = null;
-            }).AddTo(_disposables);
+            RemoveRequest = new ReactiveCommand(_hasMovement);
+            AddRequest = new ReactiveCommand(_hasNotMovement);
+            
+            RemoveRequest.Subscribe(OnRemoveRequested).AddTo(_disposables);
+            
+            _sessionInfo.SequenceMovementChanged += OnSequenceMovementChanged;
         }
-        
+
+        private void OnRemoveRequested(Unit _)
+        {
+            _sessionInfo.CurrentSequence.RemoveMovement(_movementIndex);
+        }
+
+        private void OnSequenceMovementChanged(int index)
+        {
+            if (index != _movementIndex)
+                return;
+            
+            var movement = _sessionInfo.CurrentSequence.GetMovement(_movementIndex);
+            
+            _hasMovement.Value = movement != null;
+            _hasNotMovement.Value = movement == null;
+            _icon.Value = movement != null ? movement.Icon : null;
+        }
+
         ~SequenceSlotViewPresenter()
         {
+            _sessionInfo.SequenceMovementChanged -= OnSequenceMovementChanged;
             _disposables.Dispose();
         }
     }

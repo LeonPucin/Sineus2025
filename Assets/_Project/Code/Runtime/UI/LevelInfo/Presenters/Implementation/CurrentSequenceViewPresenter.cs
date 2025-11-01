@@ -1,8 +1,6 @@
-﻿using System;
-using Gameplay.Movements;
-using Gameplay.Session;
+﻿using Gameplay.Session;
 using UniRx;
-using UnityEngine;
+using Zenject;
 
 namespace UI.LevelInfo
 {
@@ -13,9 +11,8 @@ namespace UI.LevelInfo
         
         public ISequenceSlotViewPresenter[] SequenceSlots { get; }
         public ReactiveCommand<int> AddMovementRequest { get; } = new();
-        public ReactiveCommand<(int, MovementConfig)> AddMovementCommand { get; } = new();
 
-        public CurrentSequenceViewPresenter(SessionInfo sessionInfo)
+        public CurrentSequenceViewPresenter(SessionInfo sessionInfo, DiContainer diContainer)
         {
             _sessionInfo = sessionInfo;
             int slotCount = sessionInfo.CurrentSequence.Length;
@@ -24,38 +21,15 @@ namespace UI.LevelInfo
             for (int i = 0; i < slotCount; i++)
             {
                 int currentIndex = i;
-                var slotPresenter = new SequenceSlotViewPresenter();
+                var slotPresenter = diContainer.Instantiate<SequenceSlotViewPresenter>(new object[] { currentIndex });
                 
                 slotPresenter.AddRequest.Subscribe((_) =>
                 {
                     AddMovementRequest.Execute(currentIndex);
                 }).AddTo(_disposables);
                 
-                slotPresenter.RemoveRequest.Subscribe((_) =>
-                {
-                    try
-                    {
-                        sessionInfo.CurrentSequence.RemoveMovement(currentIndex);
-                        slotPresenter.RemoveCommand.Execute();
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogError("Error removing movement: " + e);
-                    }
-                }).AddTo(_disposables);
-                
                 SequenceSlots[i] = slotPresenter;
             }
-            
-            AddMovementCommand.Subscribe(OnAddMovement).AddTo(_disposables);
-        }
-
-        private void OnAddMovement((int, MovementConfig) info)
-        {
-            int index = info.Item1;
-            MovementConfig config = info.Item2;
-            _sessionInfo.CurrentSequence.SetMovement(index, config);
-            SequenceSlots[index].AddCommand.Execute(config);
         }
 
         ~CurrentSequenceViewPresenter()

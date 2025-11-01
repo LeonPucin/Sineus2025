@@ -37,7 +37,7 @@ namespace Gameplay.UnitCrowd
         public void SetupCrowd(MovementSequence movementSequence, int count)
         {
             float brokenPart =
-                _difficultyConverter.ConvertToBrokenPart(movementSequence.CurrentMovements
+                _difficultyConverter.ConvertToBrokenPart(movementSequence.ValidSequence
                     .Select(m => m.DifficultyPoints).Sum());
             
             _currentUnites.Clear();
