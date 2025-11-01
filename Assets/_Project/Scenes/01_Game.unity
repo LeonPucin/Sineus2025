@@ -587,6 +587,9 @@ MonoBehaviour:
   - {fileID: 736961152}
   - {fileID: 565279086}
   - {fileID: 792388748}
+  _unitsMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &578905406
 Transform:
   m_ObjectHideFlags: 0

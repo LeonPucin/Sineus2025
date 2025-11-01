@@ -8,6 +8,9 @@ namespace Gameplay.UnitCrowd
     public class CrowdPlaceController : MonoBehaviour
     {
         [SerializeField] private Transform[] _unitPlaces;
+        [SerializeField] private LayerMask _unitsMask;
+        
+        private Collider[] _unitsBuffer = new Collider[100];
 
         public void DistributeUnits(IReadOnlyList<Unit> units)
         {
@@ -29,6 +32,17 @@ namespace Gameplay.UnitCrowd
                 unit.transform.position = selectedPlace.position;
                 unit.transform.rotation = selectedPlace.rotation;
             }
+        }
+
+        public Unit[] GetUnitsInRadius(Unit unit, float radius)
+        {
+            int nearUnits = Physics.OverlapSphereNonAlloc(unit.transform.position, radius, _unitsBuffer, _unitsMask);
+            Unit[] result = new Unit[nearUnits];
+            
+            for (int i = 0; i < nearUnits; i++)
+                result[i] = _unitsBuffer[i].GetComponent<Unit>();
+            
+            return result;
         }
     }
 }

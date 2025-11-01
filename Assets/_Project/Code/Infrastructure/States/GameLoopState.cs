@@ -64,6 +64,7 @@ namespace Infrastructure.States
             _diContainer.Bind<UnitConfigsCatalog>().FromInstance(configsResource.Get<UnitConfigsCatalog>()).AsSingle();
             _diContainer.Bind<UnitSpawnerConfig>().FromInstance(configsResource.Get<UnitSpawnerConfig>()).AsSingle();
             _diContainer.Bind<CrowdMovementsConfig>().FromInstance(configsResource.Get<CrowdMovementsConfig>()).AsSingle();
+            _diContainer.Bind<CrowdConfig>().FromInstance(configsResource.Get<CrowdConfig>()).AsSingle();
         }
     }
 }

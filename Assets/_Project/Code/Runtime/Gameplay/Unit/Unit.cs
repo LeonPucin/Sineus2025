@@ -1,4 +1,5 @@
-﻿using EPOOutline;
+﻿using System;
+using EPOOutline;
 using TMPro;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ namespace Gameplay.Units
 
         public UnitState CurrentState { get; private set; } = UnitState.Normal;
         public bool IsInteractable => _isInteractable;
+        
+        public event Action<Unit, UnitState> StateChanged;
 
         private void Awake()
         {
@@ -37,7 +40,11 @@ namespace Gameplay.Units
 
         public void SetState(UnitState state)
         {
+            var oldState = CurrentState;
             CurrentState = state;
+            
+            if (state != oldState)
+                StateChanged?.Invoke(this, state);
         }
 
         public void SetHighlighted(bool highlighted)

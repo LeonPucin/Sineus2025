@@ -8,4 +8,11 @@ namespace Game.Utility
         public float MinValue;
         public float MaxValue;
     }
+    
+    [Serializable]
+    public struct RangedValueInt
+    {
+        public int MinValue;
+        public int MaxValue;
+    }
 }

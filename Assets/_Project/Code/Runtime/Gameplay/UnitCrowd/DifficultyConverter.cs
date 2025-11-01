@@ -4,7 +4,7 @@
     {
         public float ConvertToBrokenPart(int difficultyPoints)
         {
-            return 0.5f; //TODO: add real converting based on max difficulty
+            return 0f; //TODO: add real converting based on max difficulty
         }
     }
 }
