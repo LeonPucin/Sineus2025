@@ -818,24 +818,24 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: DOTWEEN;TextMeshPro
-    EmbeddedLinux: DOTWEEN;TextMeshPro
-    GameCoreScarlett: DOTWEEN;TextMeshPro
-    GameCoreXboxOne: DOTWEEN;TextMeshPro
-    Kepler: DOTWEEN;TextMeshPro
-    LinuxHeadlessSimulation: DOTWEEN;TextMeshPro
-    Nintendo Switch: DOTWEEN;TextMeshPro
-    PS4: DOTWEEN;TextMeshPro
-    PS5: DOTWEEN;TextMeshPro
-    QNX: DOTWEEN;TextMeshPro
-    ReservedCFE: DOTWEEN;TextMeshPro
+    Android: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    EmbeddedLinux: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    GameCoreScarlett: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    GameCoreXboxOne: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    Kepler: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    LinuxHeadlessSimulation: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    Nintendo Switch: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    PS4: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    PS5: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    QNX: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    ReservedCFE: DOTWEEN;TextMeshPro;EPO_DOTWEEN
     Standalone: DOTWEEN;ODIN_INSPECTOR;ODIN_INSPECTOR_3;ODIN_INSPECTOR_3_1;ODIN_INSPECTOR_3_2;ODIN_INSPECTOR_3_3;TextMeshPro
-    VisionOS: DOTWEEN;TextMeshPro
-    WebGL: DOTWEEN;TextMeshPro
-    Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN;TextMeshPro
-    iPhone: DOTWEEN;TextMeshPro
-    tvOS: DOTWEEN;TextMeshPro
+    VisionOS: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    WebGL: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    Windows Store Apps: DOTWEEN;EPO_DOTWEEN
+    XboxOne: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    iPhone: DOTWEEN;TextMeshPro;EPO_DOTWEEN
+    tvOS: DOTWEEN;TextMeshPro;EPO_DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
