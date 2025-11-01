@@ -67,7 +67,8 @@ namespace Gameplay.UnitCrowd
             }
             
             _currentMovementIndex = (_currentMovementIndex + 1) % _movementSequence.CurrentMovements.Count;
-            _ = _animationTimer.Start(currentMovement.AnimationClip.length, PlayNextMovement);
+            //_ = _animationTimer.Start(currentMovement.AnimationClip.length, PlayNextMovement);
+            _ = _animationTimer.Start(_config.CrowdLength, PlayNextMovement);
         }
     }
 }
