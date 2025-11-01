@@ -15,6 +15,6 @@ MonoBehaviour:
   _id: movement/2
   _animationClip: {fileID: -203655887218126122, guid: c9c2cd26929134d79b66e5e9f0dd3d54, type: 3}
   _difficultyPoints: 2
-  _title: 3
-  _icon: {fileID: 21300000, guid: b3c04a5271807c640a03f3fb5ae786d8, type: 3}
+  _title: "\u0412\u043E\u0437\u043D\u043E\u0448\u0435\u043D\u0438\u0435 \u0440\u0443\u043A"
+  _icon: {fileID: 21300000, guid: f7a3c496247304b019c6a6d86dabbd5f, type: 3}
   _audioClip: {fileID: 0}
