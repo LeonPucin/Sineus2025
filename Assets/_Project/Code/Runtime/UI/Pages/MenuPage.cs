@@ -1,20 +1,23 @@
 using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 
-public class MenuPage : MonoPage, IUIPage
+namespace UI.Pages
 {
-    public override void Initialize()
+    public class MenuPage : MonoPage, IUIPage
     {
-        SetCanvasState(true);
-    }
+        public override void Initialize()
+        {
+            SetCanvasState(true);
+        }
 
-    public void Open()
-    {
-        SetCanvasState(true);
-    }
+        public void Open()
+        {
+            SetCanvasState(true);
+        }
 
-    public override void Close()
-    {
-        SetCanvasState(false);
+        public override void Close()
+        {
+            SetCanvasState(false);
+        }
     }
 }

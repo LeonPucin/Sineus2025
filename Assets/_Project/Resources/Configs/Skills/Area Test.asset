@@ -24,5 +24,6 @@ MonoBehaviour:
   _name: 
   _icon: {fileID: 0}
   _description: 
+  _cooldown: 6
   _radius: 5
   _skillTargets: 0200000001000000

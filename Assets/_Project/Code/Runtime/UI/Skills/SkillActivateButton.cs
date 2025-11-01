@@ -1,24 +1,29 @@
-﻿using DoubleDCore.UI.Base;
-using Gameplay.Skills;
+﻿using TMPro;
+using UI.Skills.Presenters;
 using UnityEngine;
+using UnityEngine.UI;
+using UniRx;
 
 namespace UI.Skills
 {
-    public class SkillActivateButton : ButtonListener
+    public class SkillActivateButton : MonoBehaviour
     {
-        [SerializeField] private SkillConfig _connectedSkill;
+        [SerializeField] private TMP_Text _cooldownTime;
+        [SerializeField] private Image _cooldownFill;
+        [SerializeField] private GameObject _cooldownRoot;
+        [SerializeField] private Button _useButton;
         
-        private SkillActivator _skillActivator;
+        private SkillButtonPresenter _presenter;
 
-        [Zenject.Inject]
-        private void Init(SkillActivator skillActivator)
+        public void Initialize(SkillButtonPresenter presenter)
         {
-            _skillActivator = skillActivator;
-        }
-        
-        protected override void OnButtonClicked()
-        {
-            _skillActivator.Activate(_connectedSkill);
+            _presenter = presenter;
+            
+            _presenter.IsInCooldown.Subscribe((isCooldown) => _cooldownRoot.SetActive(isCooldown)).AddTo(this);
+            _presenter.CooldownLeftTitle.Subscribe((time) => _cooldownTime.text = time).AddTo(this);
+            _presenter.CooldownLeftPart.Subscribe((part) => _cooldownFill.fillAmount = part).AddTo(this);
+
+            _presenter.ConfirmCommand.BindTo(_useButton).AddTo(this);
         }
     }
 }

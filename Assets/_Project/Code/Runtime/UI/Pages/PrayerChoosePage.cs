@@ -1,24 +1,27 @@
 using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 
-public class PrayerChoosePage : MonoPage, IPayloadPage<PrayerChooseInfo>
+namespace UI.Pages
 {
-    public override void Initialize()
+    public class PrayerChoosePage : MonoPage, IPayloadPage<PrayerChooseInfo>
     {
-        SetCanvasState(false);
+        public override void Initialize()
+        {
+            SetCanvasState(false);
+        }
+
+        public void Open(PrayerChooseInfo context)
+        {
+            SetCanvasState(true);
+        }
+
+        public override void Close()
+        {
+            SetCanvasState(false);
+        }
     }
 
-    public void Open(PrayerChooseInfo context)
+    public class PrayerChooseInfo
     {
-        SetCanvasState(true);
     }
-
-    public override void Close()
-    {
-        SetCanvasState(false);
-    }
-}
-
-public class PrayerChooseInfo
-{
 }

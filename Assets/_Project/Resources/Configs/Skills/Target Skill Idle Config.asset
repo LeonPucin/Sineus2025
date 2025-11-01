@@ -24,4 +24,5 @@ MonoBehaviour:
   _name: 
   _icon: {fileID: 0}
   _description: 
+  _cooldown: 1.5
   _targetState: 1
