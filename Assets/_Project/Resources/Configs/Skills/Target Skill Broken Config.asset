@@ -25,4 +25,5 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _description: 
   _cooldown: 1.5
+  _alterKey: 31
   _targetState: 2

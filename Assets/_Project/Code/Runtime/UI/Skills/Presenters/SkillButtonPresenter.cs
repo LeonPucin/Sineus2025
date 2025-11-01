@@ -1,7 +1,9 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using Gameplay.Skills;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace UI.Skills.Presenters
 {
@@ -13,23 +15,49 @@ namespace UI.Skills.Presenters
         private readonly FloatReactiveProperty _cooldownLeftPart = new(0);
         private readonly BoolReactiveProperty _isInCooldown = new(false);
         private readonly BoolReactiveProperty _isNotInCooldown = new(true);
+        private readonly BoolReactiveProperty _isInUse = new(false);
         private readonly CompositeDisposable _disposables = new();
+        private readonly Key _alterKey;
+        private readonly CancellationTokenSource _cts = new();
         
         public IReadOnlyReactiveProperty<string> CooldownLeftTitle => _cooldownLeftTitle;
         public IReadOnlyReactiveProperty<float> CooldownLeftPart => _cooldownLeftPart;
         public IReadOnlyReactiveProperty<bool> IsInCooldown => _isInCooldown;
+        public IReadOnlyReactiveProperty<bool> IsInUse => _isInUse;
         public ReactiveCommand ConfirmCommand { get; }
+        public string AlterKeyName { get; }
 
         public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill)
         {
             _skillActivator = skillActivator;
             _connectedSkill = connectedSkill;
+            _alterKey = connectedSkill.AlterKey;
+            AlterKeyName = _alterKey.ToString();
             
             ConfirmCommand = new ReactiveCommand(_isNotInCooldown);
             ConfirmCommand.Subscribe(ActivateSkill).AddTo(_disposables);
             
             _skillActivator.CooldownStarted += OnCooldownStarted;
             _skillActivator.CooldownEnded += OnCooldownEnded;
+            _skillActivator.CurrentSkillChanged += OnCurrentSkillChanged;
+
+            _ = ListenForAlterKeyAsync(_cts.Token);
+        }
+
+        private void OnCurrentSkillChanged(SkillConfig newSkill)
+        {
+            _isInUse.Value = newSkill == _connectedSkill;
+        }
+
+        private async UniTask ListenForAlterKeyAsync(CancellationToken token)
+        {
+            while (token.IsCancellationRequested == false)
+            {
+                if (Keyboard.current[_alterKey].wasReleasedThisFrame && ConfirmCommand.CanExecute.Value)
+                    ConfirmCommand.Execute();
+                
+                await UniTask.Yield(cancellationToken: token);
+            }
         }
 
         private void ActivateSkill(Unit _)
@@ -61,7 +89,6 @@ namespace UI.Skills.Presenters
 
         private async UniTask UpdateCooldownState()
         {
-            var waiter = UniTask.Yield();
             float totalCooldown = _connectedSkill.Cooldown;
             
             while (_cooldownLeftPart.Value > 0)
@@ -70,7 +97,7 @@ namespace UI.Skills.Presenters
                 _cooldownLeftTitle.Value = $"{cooldownLeft:F1}";
                 _cooldownLeftPart.Value = cooldownLeft / totalCooldown;
                 
-                await waiter;
+                await UniTask.Yield();
             }
         }
         
@@ -78,7 +105,10 @@ namespace UI.Skills.Presenters
         {
             _skillActivator.CooldownStarted -= OnCooldownStarted;
             _skillActivator.CooldownEnded -= OnCooldownEnded;
+            _skillActivator.CurrentSkillChanged -= OnCurrentSkillChanged;
             _disposables.Dispose();
+            _cts.Cancel();
+            _cts.Dispose();
         }
     }
 }
