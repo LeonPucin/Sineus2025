@@ -1,14 +1,14 @@
 ﻿using TMPro;
-using UI.Cards;
 using UnityEngine;
 using UniRx;
+using UnityEngine.UI;
 
 namespace UI.LevelInfo
 {
     public class CurrentDifficultyView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _difficultyText;
-        [SerializeField] private DifficultyPointsDisplayer _pointsDisplayer;
+        [SerializeField] private Image _fillDisplayer;
         
         private ICurrentDifficultyViewPresenter _presenter;
 
@@ -22,7 +22,9 @@ namespace UI.LevelInfo
         private void UpdateState()
         {
             _difficultyText.text = $"{_presenter.CurrentDifficulty.Value} / {_presenter.MaxDifficulty}";
-            _pointsDisplayer.Display(_presenter.CurrentDifficulty.Value);
+            
+            float fillAmount = (float)_presenter.CurrentDifficulty.Value / _presenter.MaxDifficulty;
+            _fillDisplayer.fillAmount = fillAmount;
         }
     }
 }

@@ -23,14 +23,14 @@ namespace Systems.Mocks
         
         private void Start()
         {
-            var movementSequence = _sessionInfo.CurrentSequence;
-
-            for (int i = 0; i < _startSeq.Length; i++)
-            {
-                movementSequence.SetMovement(i, _startSeq[i]);
-            }
-            
-            _crowdController.SetupCrowd(movementSequence, _unitCount);
+            // var movementSequence = _sessionInfo.CurrentSequence;
+            //
+            // for (int i = 0; i < _startSeq.Length; i++)
+            // {
+            //     movementSequence.SetMovement(i, _startSeq[i]);
+            // }
+            //
+            // _crowdController.SetupCrowd(movementSequence, _unitCount);
         }
     }
 }

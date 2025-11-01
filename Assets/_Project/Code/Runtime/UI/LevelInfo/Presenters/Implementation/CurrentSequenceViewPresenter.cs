@@ -55,6 +55,7 @@ namespace UI.LevelInfo
             int index = info.Item1;
             MovementConfig config = info.Item2;
             _sessionInfo.CurrentSequence.SetMovement(index, config);
+            SequenceSlots[index].AddCommand.Execute(config);
         }
 
         ~CurrentSequenceViewPresenter()

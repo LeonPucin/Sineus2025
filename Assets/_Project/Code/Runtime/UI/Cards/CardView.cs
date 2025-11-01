@@ -27,7 +27,7 @@ namespace UI.Cards
             presenter.CanBeSelected.Subscribe((canBe) =>
             {
                 _outline.SetActive(canBe);
-                _selectButton.interactable = canBe;
+                _selectButton.enabled = canBe;
             }).AddTo(this);
             
             _selectButton.OnClickAsObservable()

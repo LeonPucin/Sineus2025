@@ -41,7 +41,7 @@ namespace UI.Cards
                 _indexToReturn = index;
             }).AddTo(_disposables);
 
-            SelectRequest.Subscribe((index) =>
+            SelectRequest.Subscribe((_) =>
             {
                 _canBeSelected.Value = false;
                 SelectedEvent.Execute((_indexToReturn, _movement));

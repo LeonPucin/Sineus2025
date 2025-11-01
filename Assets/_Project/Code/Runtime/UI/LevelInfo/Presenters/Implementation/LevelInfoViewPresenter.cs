@@ -1,6 +1,7 @@
 ﻿using Gameplay.Movements;
 using Gameplay.Session;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace UI.LevelInfo
@@ -40,6 +41,7 @@ namespace UI.LevelInfo
             }).AddTo(_disposables);
             
             _sessionInfo.LevelChanged += OnLevelChanged;
+            OnLevelChanged();
         }
 
         private void OnLevelChanged()

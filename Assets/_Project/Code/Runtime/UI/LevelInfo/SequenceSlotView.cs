@@ -22,9 +22,14 @@ namespace UI.LevelInfo
             {
                 _addRoot.SetActive(!has);
                 _removeRoot.SetActive(has);
-            });
+            }).AddTo(this);
             
-            presenter.Icon.Subscribe((icon) => _icon.sprite = icon);
+            presenter.Icon.Subscribe((icon) =>
+            {
+                _icon.enabled = icon != null;
+                _icon.sprite = icon;
+            }).AddTo(this);
+            
             presenter.AddRequest.BindTo(_addButton).AddTo(this);
             presenter.RemoveRequest.BindTo(_removeButton).AddTo(this);
         }
