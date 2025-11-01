@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: movement/1
   _animationClip: {fileID: -203655887218126122, guid: 8d53393a6f9a44877addc33433952106, type: 3}
-  _difficultyPoints: 0
-  _title: 
-  _description: 
-  _icon: {fileID: 0}
+  _difficultyPoints: 1
+  _title: 2
+  _icon: {fileID: 21300000, guid: 93e79b346ab1b1f468151d0f9e934e1c, type: 3}
   _audioClip: {fileID: 0}

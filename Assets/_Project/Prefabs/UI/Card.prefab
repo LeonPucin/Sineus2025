@@ -228,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3662972697494085053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -515,6 +515,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5955669561870985316}
+  - component: {fileID: 6179412090052453522}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -547,6 +548,23 @@ RectTransform:
   m_AnchoredPosition: {x: -136.6, y: -33}
   m_SizeDelta: {x: 170, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6179412090052453522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8697864445031544923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9f047f7b754d3dba5fb882d35bb094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+  _name: {fileID: 0}
+  _difficultyPointsDisplayer: {fileID: 0}
+  _outline: {fileID: 2905046179026045457}
+  _selectButton: {fileID: 0}
 --- !u!1001 &439054863322960566
 PrefabInstance:
   m_ObjectHideFlags: 0
