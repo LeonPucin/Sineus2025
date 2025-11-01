@@ -2,14 +2,26 @@
 {
     public class DifficultyConverter
     {
-        public float ConvertToBrokenPart(int difficultyPoints)
+        private readonly DifficultyConfig _config;
+
+        public DifficultyConverter(DifficultyConfig config)
         {
-            return 0f; //TODO: add real converting based on max difficulty
+            _config = config;
         }
         
-        public int GetCrowdSize(int difficultyPoints)
+        public float ConvertToBrokenPart(int difficultyPoints)
         {
-            return difficultyPoints; //TODO: add real converting based on max difficulty
+            return _config.GetSettings(difficultyPoints).StartBrokenPart;
+        }
+        
+        public int ConvertToCrowdSize(int difficultyPoints)
+        {
+            return _config.GetSettings(difficultyPoints).CrowdSize;
+        }
+        
+        public bool IsDistributionAvailable(int difficultyPoints)
+        {
+            return difficultyPoints >= _config.DistributionDifficultyThreshold;
         }
     }
 }

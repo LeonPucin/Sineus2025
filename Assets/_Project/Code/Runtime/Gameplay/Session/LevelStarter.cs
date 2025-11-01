@@ -11,14 +11,16 @@ namespace Gameplay.Session
         private readonly SessionInfo _sessionInfo;
         private readonly CrowdController _crowdController;
         private readonly IUIManager _uiManager;
+        private readonly DifficultyConverter _difficultyConverter;
         private readonly InputControls _inputControls;
         
         public LevelStarter(SessionInfo sessionInfo, IInputService<InputControls> inputService,
-            CrowdController crowdController, IUIManager uiManager)
+            CrowdController crowdController, IUIManager uiManager, DifficultyConverter difficultyConverter)
         {
             _sessionInfo = sessionInfo;
             _crowdController = crowdController;
             _uiManager = uiManager;
+            _difficultyConverter = difficultyConverter;
             _inputControls = inputService.GetInputProvider();
         }
 
@@ -30,7 +32,9 @@ namespace Gameplay.Session
             _uiManager.ClosePage<PlayerChoosePage>();
             _uiManager.OpenPage<SkillsPage>();
             
-            _crowdController.SetupCrowd(_sessionInfo.CurrentSequence, 20);
+            var currentSequence = _sessionInfo.CurrentSequence;
+            _crowdController.SetupCrowd(currentSequence,
+                _difficultyConverter.ConvertToCrowdSize(currentSequence.TotalDifficultyPoints));
             _crowdController.Start();
         }
 

@@ -18,6 +18,9 @@ namespace Gameplay.UnitCrowd
         private readonly Dictionary<Unit, MovementTimer> _unitTimers = new();
         private readonly List<Unit> _currentUnites = new();
         private readonly MovementTimer _distributionTimer;
+
+        private MovementSequence _movementSequence;
+        private bool _canDistributeUnits = false;
         
         public CrowdController(CrowdPlaceController placeController, Unit mainUnit, UnitSpawner unitSpawner,
             DifficultyConverter difficultyConverter, CrowdMovementsController movementsController, CrowdConfig config,
@@ -36,9 +39,9 @@ namespace Gameplay.UnitCrowd
 
         public void SetupCrowd(MovementSequence movementSequence, int count)
         {
-            float brokenPart =
-                _difficultyConverter.ConvertToBrokenPart(movementSequence.ValidSequence
-                    .Select(m => m.DifficultyPoints).Sum());
+            _movementSequence = movementSequence;
+            _canDistributeUnits = _difficultyConverter.IsDistributionAvailable(_movementSequence.TotalDifficultyPoints);
+            float brokenPart = _difficultyConverter.ConvertToBrokenPart(_movementSequence.TotalDifficultyPoints);
             
             _currentUnites.Clear();
             
@@ -51,15 +54,13 @@ namespace Gameplay.UnitCrowd
                 _unitTimers.Add(spawnedUnit, new MovementTimer(_movementsController));
             
             _movementsController.Setup(spawnedUnits, _mainUnit, movementSequence);
-            
-            Start(); //TODO: invoke in another place after user confirmation
         }
 
         public void Start()
         {
             foreach (var (unit, timer) in _unitTimers)
             {
-                if (unit.CurrentState != UnitState.Normal)
+                if (_canDistributeUnits && unit.CurrentState != UnitState.Normal)
                 {
                     var stateConfig = _config.GetStateConfig(unit.CurrentState);
                     timer.Start(stateConfig.DistributionDelay, () => DistributeUnit(unit));
@@ -119,7 +120,7 @@ namespace Gameplay.UnitCrowd
                 unit.SetState(UnitState.Invincible);
                 timer.Start(_config.InvincibleDelay, () => DisableInvincibility(unit));
             }
-            else
+            else if (_canDistributeUnits)
             {
                 var stateConfig = _config.GetStateConfig(unit.CurrentState);
                 timer.Start(stateConfig.DistributionDelay, () => DistributeUnit(unit));

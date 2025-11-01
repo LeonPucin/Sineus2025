@@ -33,8 +33,7 @@ namespace Gameplay.Quests
             
             public void Visit(DifficultyQuestConfig difficultyQuestConfig)
             {
-                int totalDifficulty = _sessionInfo.CurrentSequence.ValidSequence
-                    .Sum(x => x.DifficultyPoints);
+                int totalDifficulty = _sessionInfo.CurrentSequence.TotalDifficultyPoints;
                 
                 CanStart = totalDifficulty >= difficultyQuestConfig.TargetDifficultyPoints.MinValue && 
                        totalDifficulty <= difficultyQuestConfig.TargetDifficultyPoints.MaxValue;

@@ -67,6 +67,7 @@ namespace Infrastructure.States
             _diContainer.Bind<CrowdMovementsConfig>().FromInstance(configsResource.Get<CrowdMovementsConfig>()).AsSingle();
             _diContainer.Bind<CrowdConfig>().FromInstance(configsResource.Get<CrowdConfig>()).AsSingle();
             _diContainer.Bind<SessionConfig>().FromInstance(configsResource.Get<SessionConfig>()).AsSingle();
+            _diContainer.Bind<DifficultyConfig>().FromInstance(configsResource.Get<DifficultyConfig>()).AsSingle();
         }
     }
 }

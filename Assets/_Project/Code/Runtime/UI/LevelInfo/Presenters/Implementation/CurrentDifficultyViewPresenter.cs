@@ -29,8 +29,7 @@ namespace UI.LevelInfo
 
         private void OnSequenceMovementChanged(int _)
         {
-            _currentDifficulty.Value = _sessionInfo.CurrentSequence.ValidSequence
-                .Sum(x => x.DifficultyPoints);
+            _currentDifficulty.Value = _sessionInfo.CurrentSequence.TotalDifficultyPoints;
         }
 
         ~CurrentDifficultyViewPresenter()

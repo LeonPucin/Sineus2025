@@ -93,6 +93,10 @@ namespace Gameplay.UnitCrowd
                 case UnitState.Broken:
                     resultClip = _config.PossibleMovements[Random.Range(0, _config.PossibleMovements.Length)]
                         .AnimationClip;
+                    
+                    while (resultClip == _movementSequence.ValidSequence[_currentMovementIndex].AnimationClip)
+                        resultClip = _config.PossibleMovements[Random.Range(0, _config.PossibleMovements.Length)]
+                            .AnimationClip;
                     break;
                 default:
                     resultClip = null;
