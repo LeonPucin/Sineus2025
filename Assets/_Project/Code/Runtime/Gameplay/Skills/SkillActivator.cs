@@ -43,6 +43,22 @@ namespace Gameplay.Skills
             _confirmator.ConfirmUse(skill);
         }
 
+        public void DeactivateCurrent()
+        {
+            _currentSkill = null;
+            _confirmator.CancelConfirmation();
+            CurrentSkillChanged?.Invoke(_currentSkill);
+        }
+        
+        public void ResetCooldowns()
+        {
+            foreach (var (skill, timer) in _skillCooldowns)
+            {
+                timer.Stop();
+                CooldownEnded?.Invoke(skill);
+            }
+        }
+
         public void Initialize()
         {
             _confirmator.Confirmed += OnSkillConfirmed;

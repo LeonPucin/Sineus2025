@@ -18,5 +18,5 @@ MonoBehaviour:
   _description: 
   _cooldown: 6
   _alterKey: 19
-  _radius: 5
+  _radius: 2.5
   _skillTargets: 0200000001000000

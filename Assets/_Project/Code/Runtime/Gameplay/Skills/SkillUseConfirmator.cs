@@ -47,6 +47,18 @@ namespace Gameplay.Skills
         public void ConfirmUse(SkillConfig skill)
         {
             _currentSkill = skill;
+            _lastResult = null;
+        }
+        
+        public void CancelConfirmation()
+        {
+            if (_currentSkill == null)
+                return;
+            
+            DisableLastHighlight();
+            
+            Cancelled?.Invoke();
+            _currentSkill = null;
         }
 
         private void Update()
@@ -57,10 +69,7 @@ namespace Gameplay.Skills
             if (_inputControls.Character.Aim.WasPerformedThisFrame() ||
                 _inputControls.Character.Esc.WasPerformedThisFrame())
             {
-                DisableLastHighlight();
-                
-                Cancelled?.Invoke();
-                _currentSkill = null;
+                CancelConfirmation();
                 return;
             }
 

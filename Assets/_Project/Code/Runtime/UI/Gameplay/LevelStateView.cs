@@ -19,6 +19,8 @@ namespace UI.Gameplay
             if (_presenter != null)
             {
                 _disposables.Dispose();
+                _disposables = new();
+                
                 _presenter = null;
             }
             

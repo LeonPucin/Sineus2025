@@ -19,6 +19,7 @@ namespace Gameplay.UnitCrowd
         private MovementSequence _movementSequence;
         private MovementConfig _lastMovement;
         private int _currentMovementIndex;
+        private bool _isWorking = false;
 
         public event Action MovementStarting;
 
@@ -39,6 +40,8 @@ namespace Gameplay.UnitCrowd
         
         public void Start()
         {
+            _isWorking = true;
+            
             foreach (var unit in _units)
                 unit.StateChanged += OnUnitStateChanged;
             
@@ -47,6 +50,8 @@ namespace Gameplay.UnitCrowd
 
         public void Stop()
         {
+            _isWorking = false;
+            
             foreach (var unit in _units)
                 unit.StateChanged -= OnUnitStateChanged;
             
@@ -55,6 +60,9 @@ namespace Gameplay.UnitCrowd
         
         private void PlayNextMovement()
         {
+            if (!_isWorking)
+                return;
+            
             MovementStarting?.Invoke();
             _lastMovement = _movementSequence.ValidSequence[_currentMovementIndex];
             

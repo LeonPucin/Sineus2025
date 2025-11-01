@@ -41,6 +41,12 @@ namespace Gameplay.UnitCrowd
 
         public void SetupCrowd(MovementSequence movementSequence, int count)
         {
+            if (_currentUnits.Count > 0)
+            {
+                for (int i = 0; i < _currentUnits.Count; i++)
+                    GameObject.Destroy(_currentUnits[i].gameObject);
+            }
+            
             _movementSequence = movementSequence;
             _canDistributeUnits = _difficultyConverter.IsDistributionAvailable(_movementSequence.TotalDifficultyPoints);
             float brokenPart = _difficultyConverter.ConvertToBrokenPart(_movementSequence.TotalDifficultyPoints);

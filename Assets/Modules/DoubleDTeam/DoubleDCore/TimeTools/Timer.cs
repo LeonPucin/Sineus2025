@@ -44,6 +44,9 @@ namespace DoubleDCore.TimeTools
                 while (RemainingTime > 0)
                 {
                     await UniTask.Yield(PlayerLoopTiming.Update, _cancellationTokenSource.Token);
+                    
+                    if (_cancellationTokenSource.IsCancellationRequested)
+                        break;
 
                     float delta = _timeBinding switch
                     {
@@ -59,8 +62,11 @@ namespace DoubleDCore.TimeTools
 
                 RemainingTime = 0;
 
-                onEnd?.Invoke();
-                Performed?.Invoke();
+                if (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    onEnd?.Invoke();
+                    Performed?.Invoke();
+                }
             }
             finally
             {
@@ -75,6 +81,8 @@ namespace DoubleDCore.TimeTools
                 return;
 
             _cancellationTokenSource?.Cancel();
+            RemainingTime = 0;
+            _isWorking = false;
         }
     }
 }

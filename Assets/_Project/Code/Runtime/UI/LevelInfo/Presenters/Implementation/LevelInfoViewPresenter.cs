@@ -62,6 +62,7 @@ namespace UI.LevelInfo
             var currentLevel = _sessionInfo.CurrentLevel;
             _name.Value = currentLevel.Name;
             _description.Value = currentLevel.Description;
+            _canPlayLevel.Value = _startLevelChecker.CanStartLevel();
         }
         
         ~LevelInfoViewPresenter()

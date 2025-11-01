@@ -17,3 +17,4 @@ MonoBehaviour:
   _description: "\u041F\u0440\u0438\u043A\u043E\u043B"
   _quest: {fileID: 11400000, guid: c975e1326603e4c42b3b7a01ae15ccb2, type: 2}
   _timeLimit: 60
+  _winThreshold: 0.8

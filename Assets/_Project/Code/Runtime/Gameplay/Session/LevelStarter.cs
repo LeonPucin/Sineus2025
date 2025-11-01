@@ -18,10 +18,11 @@ namespace Gameplay.Session
         private readonly LevelTimer _levelTimer;
         private readonly AlterKeysListener _alterKeysListener;
         private readonly MainThreadInputCommander _mainThreadInputCommander;
+        private readonly SkillActivator _skillActivator;
 
         public LevelStarter(SessionInfo sessionInfo, CrowdController crowdController, IUIManager uiManager,
             DifficultyConverter difficultyConverter, LevelTimer levelTimer, AlterKeysListener alterKeysListener,
-            MainThreadInputCommander mainThreadInputCommander)
+            MainThreadInputCommander mainThreadInputCommander, SkillActivator skillActivator)
         {
             _sessionInfo = sessionInfo;
             _crowdController = crowdController;
@@ -30,6 +31,7 @@ namespace Gameplay.Session
             _levelTimer = levelTimer;
             _alterKeysListener = alterKeysListener;
             _mainThreadInputCommander = mainThreadInputCommander;
+            _skillActivator = skillActivator;
         }
 
         public void SetupLevel()
@@ -40,6 +42,7 @@ namespace Gameplay.Session
             var currentSequence = _sessionInfo.CurrentSequence;
             _crowdController.SetupCrowd(currentSequence,
                 _difficultyConverter.ConvertToCrowdSize(currentSequence.TotalDifficultyPoints));
+            _skillActivator.ResetCooldowns();
         }
         
         public void StartLevel()
@@ -63,6 +66,7 @@ namespace Gameplay.Session
             _mainThreadInputCommander.SwitchMap<UIMap>();
             
             _crowdController.Stop();
+            _skillActivator.DeactivateCurrent();
             _alterKeysListener.enabled = false;
             
             _uiManager.ClosePage<GameplayPage>();

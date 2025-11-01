@@ -30,6 +30,12 @@ namespace UI.LevelInfo
             RemoveRequest.Subscribe(OnRemoveRequested).AddTo(_disposables);
             
             _sessionInfo.SequenceMovementChanged += OnSequenceMovementChanged;
+            _sessionInfo.LevelChanged += OnLevelChanged;
+        }
+
+        private void OnLevelChanged()
+        {
+            UpdateMovementInfo();
         }
 
         private void OnRemoveRequested(Unit _)
@@ -41,7 +47,12 @@ namespace UI.LevelInfo
         {
             if (index != _movementIndex)
                 return;
-            
+
+            UpdateMovementInfo();
+        }
+
+        private void UpdateMovementInfo()
+        {
             var movement = _sessionInfo.CurrentSequence.GetMovement(_movementIndex);
             
             _hasMovement.Value = movement != null;
@@ -52,6 +63,7 @@ namespace UI.LevelInfo
         ~SequenceSlotViewPresenter()
         {
             _sessionInfo.SequenceMovementChanged -= OnSequenceMovementChanged;
+            _sessionInfo.LevelChanged -= OnLevelChanged;
             _disposables.Dispose();
         }
     }

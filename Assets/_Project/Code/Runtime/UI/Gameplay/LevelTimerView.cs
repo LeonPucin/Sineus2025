@@ -16,11 +16,16 @@ namespace UI.Gameplay
             if (_presenter != null)
             {
                 _disposables.Dispose();
+                _disposables = new();
+                
                 _presenter = null;
             }
 
             _presenter = presenter;
-            _presenter.TimeLeftText.Subscribe(txt => _timerText.text = txt).AddTo(_disposables);
+            _presenter.TimeLeftText.Subscribe(txt =>
+            {
+                _timerText.text = txt;
+            }).AddTo(_disposables);
         }
 
         private void OnDestroy()

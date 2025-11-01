@@ -132,6 +132,7 @@ MonoBehaviour:
   _canvas: {fileID: 6969185768350304226}
   _graphicRaycaster: {fileID: 712378198226478011}
   _startButton: {fileID: 2345875602936735016}
+  _levelTitle: {fileID: 1355074003792272455}
 --- !u!1 &4126295693163145083
 GameObject:
   m_ObjectHideFlags: 0
