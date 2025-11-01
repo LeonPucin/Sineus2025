@@ -29,7 +29,8 @@ namespace Gameplay.Units
 
         public void PlayMovement(AnimationClip animationClip)
         {
-            _animator.Play(animationClip.name);
+            //_animator.Play(animationClip.name);
+            _animator.SetTrigger(animationClip.name);
 
             if (_debug)
                 _debugTitle.text = animationClip.name;

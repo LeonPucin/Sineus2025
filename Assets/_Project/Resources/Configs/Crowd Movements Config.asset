@@ -21,7 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _crowdLength: 2
+  _crowdLength: 3
   _idleMovementConfig: {fileID: 11400000, guid: 5a28608dfaa38a74abba7d2f1c7ad961, type: 2}
   _heresyMovementConfig: {fileID: 11400000, guid: f6f381f9ac0184d408804e58bd3d21fb, type: 2}
   _possibleMovements:
