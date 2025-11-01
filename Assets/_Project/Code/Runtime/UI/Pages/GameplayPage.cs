@@ -1,4 +1,5 @@
-﻿using DoubleDCore.UI;
+﻿using System.Collections.Generic;
+using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 using Gameplay.Skills;
 using UI.Gameplay;
@@ -17,6 +18,7 @@ namespace UI.Pages.SkillsPage
         [SerializeField] private LevelStateView _stateView;
         
         private DiContainer _container;
+        private List<SkillButtonPresenter> _buttonPresenters = new();
 
         [Inject]
         private void Init(DiContainer diContainer)
@@ -30,6 +32,7 @@ namespace UI.Pages.SkillsPage
             {
                 var presenter = _container.Instantiate<SkillButtonPresenter>(new object[] { skill });
                 button.Initialize(presenter);
+                _buttonPresenters.Add(presenter);
             }
             
             SetCanvasState(true);
@@ -49,6 +52,12 @@ namespace UI.Pages.SkillsPage
         public override void Close()
         {
             SetCanvasState(false);
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var presenter in _buttonPresenters)
+                presenter.Dispose();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DoubleDCore.Periphery.Base;
 using Gameplay.Skills;
@@ -8,7 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace UI.Skills.Presenters
 {
-    public class SkillButtonPresenter
+    public class SkillButtonPresenter : IDisposable
     {
         private readonly SkillActivator _skillActivator;
         private readonly SkillConfig _connectedSkill;
@@ -107,15 +108,15 @@ namespace UI.Skills.Presenters
                 await UniTask.Yield();
             }
         }
-        
-        ~SkillButtonPresenter()
+
+        public void Dispose()
         {
             _skillActivator.CooldownStarted -= OnCooldownStarted;
             _skillActivator.CooldownEnded -= OnCooldownEnded;
             _skillActivator.CurrentSkillChanged -= OnCurrentSkillChanged;
-            _disposables.Dispose();
             _cts.Cancel();
             _cts.Dispose();
+            _disposables.Dispose();
         }
     }
 }
