@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using DoubleDCore.Periphery.Base;
 using Gameplay.Skills;
 using UniRx;
 using UnityEngine;
@@ -19,7 +20,8 @@ namespace UI.Skills.Presenters
         private readonly CompositeDisposable _disposables = new();
         private readonly Key _alterKey;
         private readonly CancellationTokenSource _cts = new();
-        
+        private readonly InputControls _inputControls;
+
         public IReadOnlyReactiveProperty<string> CooldownLeftTitle => _cooldownLeftTitle;
         public IReadOnlyReactiveProperty<float> CooldownLeftPart => _cooldownLeftPart;
         public IReadOnlyReactiveProperty<bool> IsInCooldown => _isInCooldown;
@@ -27,8 +29,10 @@ namespace UI.Skills.Presenters
         public ReactiveCommand ConfirmCommand { get; }
         public string AlterKeyName { get; }
 
-        public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill)
+        public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill,
+            IInputService<InputControls> inputService)
         {
+            _inputControls = inputService.GetInputProvider();
             _skillActivator = skillActivator;
             _connectedSkill = connectedSkill;
             _alterKey = connectedSkill.AlterKey;
@@ -53,6 +57,9 @@ namespace UI.Skills.Presenters
         {
             while (token.IsCancellationRequested == false)
             {
+                if (_inputControls.Character.enabled == false)
+                    continue;
+                
                 if (Keyboard.current[_alterKey].wasReleasedThisFrame && ConfirmCommand.CanExecute.Value)
                     ConfirmCommand.Execute();
                 

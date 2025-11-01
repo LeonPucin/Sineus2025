@@ -1,6 +1,7 @@
 ﻿using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 using Gameplay.Skills;
+using UI.Gameplay;
 using UI.Skills;
 using UI.Skills.Presenters;
 using UnityEngine;
@@ -9,9 +10,11 @@ using Zenject;
 
 namespace UI.Pages.SkillsPage
 {
-    public class SkillsPage : MonoPage, IUIPage
+    public class GameplayPage : MonoPage, IUIPage
     {
         [SerializeField] private SerializedDictionary<SkillActivateButton, SkillConfig> _skillButtons;
+        [SerializeField] private LevelTimerView _timerText;
+        [SerializeField] private LevelStateView _stateView;
         
         private DiContainer _container;
 
@@ -34,6 +37,12 @@ namespace UI.Pages.SkillsPage
 
         public void Open()
         {
+            var stateViewPresenter = _container.Instantiate<LevelStateViewPresenter>();
+            var timerViewPresenter = _container.Instantiate<LevelTimerViewPresenter>();
+            
+            _stateView.Initialize(stateViewPresenter);
+            _timerText.Initialize(timerViewPresenter);
+            
             SetCanvasState(true);
         }
 

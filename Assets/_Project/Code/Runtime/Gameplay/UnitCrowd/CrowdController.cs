@@ -16,11 +16,13 @@ namespace Gameplay.UnitCrowd
         private readonly CrowdPlaceController _placeController;
         private readonly Unit _mainUnit;
         private readonly Dictionary<Unit, MovementTimer> _unitTimers = new();
-        private readonly List<Unit> _currentUnites = new();
+        private readonly List<Unit> _currentUnits = new();
         private readonly MovementTimer _distributionTimer;
 
         private MovementSequence _movementSequence;
         private bool _canDistributeUnits = false;
+        
+        public IReadOnlyList<Unit> AllUnits => _currentUnits;
         
         public CrowdController(CrowdPlaceController placeController, Unit mainUnit, UnitSpawner unitSpawner,
             DifficultyConverter difficultyConverter, CrowdMovementsController movementsController, CrowdConfig config,
@@ -43,11 +45,11 @@ namespace Gameplay.UnitCrowd
             _canDistributeUnits = _difficultyConverter.IsDistributionAvailable(_movementSequence.TotalDifficultyPoints);
             float brokenPart = _difficultyConverter.ConvertToBrokenPart(_movementSequence.TotalDifficultyPoints);
             
-            _currentUnites.Clear();
+            _currentUnits.Clear();
             
             var spawnedUnits = _unitSpawner.Spawn(count, brokenPart);
             _placeController.DistributeUnits(spawnedUnits);
-            _currentUnites.AddRange(spawnedUnits);
+            _currentUnits.AddRange(spawnedUnits);
             
             _unitTimers.Clear();
             foreach (var spawnedUnit in spawnedUnits)
@@ -82,6 +84,12 @@ namespace Gameplay.UnitCrowd
                 timer.Stop();
                 unit.StateChanged -= OnUnitStateChanged;
             }
+        }
+
+        public float GetBrokenPart()
+        {
+            return _currentUnits.Count(u => u.CurrentState == UnitState.Broken || u.CurrentState == UnitState.Idle) /
+                   (float)_currentUnits.Count;
         }
 
         private void DistributeUnit(Unit unit)
@@ -135,7 +143,7 @@ namespace Gameplay.UnitCrowd
         private void DistributeRandom()
         {
             var amount = Random.Range(_config.DistributionAmount.MinValue, _config.DistributionAmount.MaxValue + 1);
-            var possibleUnits = _currentUnites.Where(u => u.CurrentState == UnitState.Normal).ToList();
+            var possibleUnits = _currentUnits.Where(u => u.CurrentState == UnitState.Normal).ToList();
 
             for (int i = 0; i < amount && possibleUnits.Count > 0; i++)
             {

@@ -4,6 +4,7 @@ using Gameplay.Skills;
 using Gameplay.UnitCrowd;
 using Gameplay.Units;
 using Systems.Mocks;
+using UI.Gameplay;
 using UnityEngine;
 using Zenject;
 
@@ -24,6 +25,8 @@ namespace Core.DI
             Container.Bind<SessionInfo>().AsSingle();
             Container.Bind<StartLevelQuestConditionChecker>().AsSingle();
 
+            Container.Bind<LevelTimer>().AsSingle();
+            
             Container.Bind<UnitSpawner>().FromNew().AsSingle();
             Container.Bind<DifficultyConverter>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<SkillActivator>().AsSingle();

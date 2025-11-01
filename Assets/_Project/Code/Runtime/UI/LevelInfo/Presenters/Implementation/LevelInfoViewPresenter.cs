@@ -44,7 +44,7 @@ namespace UI.LevelInfo
             
             PlayRequest.Subscribe((_) =>
             {
-                _levelStarter.StartLevel();
+                _levelStarter.SetupLevel();
             }).AddTo(_disposables);
             
             _sessionInfo.LevelChanged += OnLevelChanged;
