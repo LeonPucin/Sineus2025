@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Idle Config
   m_EditorClassIdentifier: 
   _id: movement/5
-  _animationClip: {fileID: -203655887218126122, guid: 0af40c3181dc2402db5768e3c957e00e, type: 3}
+  _animationClip: {fileID: -203655887218126122, guid: de6e2facbd9415f4596f3b342f3a670d, type: 3}
   _difficultyPoints: 0

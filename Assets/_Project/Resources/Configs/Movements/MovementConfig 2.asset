@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MovementConfig 2
   m_EditorClassIdentifier: 
   _id: movement/1
-  _animationClip: {fileID: -203655887218126122, guid: 31afa4874c48f4e399070c653161b647, type: 3}
+  _animationClip: {fileID: -203655887218126122, guid: 8d53393a6f9a44877addc33433952106, type: 3}
   _difficultyPoints: 0

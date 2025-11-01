@@ -22,7 +22,5 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   _unitPrefabs:
-  - {fileID: 2243372388136024068, guid: 6b704f50015c17148adbddee6862b4c9, type: 3}
-  - {fileID: 1620729736671831550, guid: 50c9eba3675e985468f0442e40e99b40, type: 3}
-  - {fileID: 8977104810947905249, guid: 1654736a93eae4646acba1eb125a9e79, type: 3}
+  - {fileID: 7740060578664647276, guid: a36c66a4245044d8485673902f8755aa, type: 3}
   _brokenStates: 0100000002000000

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Heresy Config
   m_EditorClassIdentifier: 
   _id: movement/4
-  _animationClip: {fileID: -203655887218126122, guid: 5759f6ce15df848638bbe2f684f433a5, type: 3}
+  _animationClip: {fileID: -203655887218126122, guid: a9c17752728c4483d887c5188c734b98, type: 3}
   _difficultyPoints: 0
