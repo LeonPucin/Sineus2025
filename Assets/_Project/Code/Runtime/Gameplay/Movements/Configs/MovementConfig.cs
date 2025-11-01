@@ -8,10 +8,20 @@ namespace Gameplay.Movements
     {
         [SerializeField] private AnimationClip _animationClip;
         [SerializeField] private int _difficultyPoints;
-        
+
+        [SerializeField] private string _title;
+        [SerializeField] private string _description;
+        [SerializeField] private Sprite _icon;
+        [SerializeField] private AudioClip _audioClip;
+
         public AnimationClip AnimationClip => _animationClip;
         public int DifficultyPoints => _difficultyPoints;
-        
+
+        public string Title => _title;
+        public string Description => _description;
+        public Sprite Icon => _icon;
+        public AudioClip AudioClip => _audioClip;
+
         protected override string GetIDPrefix()
         {
             return "movement";
