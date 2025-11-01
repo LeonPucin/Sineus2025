@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a191800d0cc4404ba538b781b19ae0a, type: 3}
-  m_Name: Level Config 1
+  m_Name: Level Config 4
   m_EditorClassIdentifier: 
   _id: level/0
-  _name: "\u041C\u0435\u0441\u0441\u0430 I"
+  _name: "\u041C\u0435\u0441\u0441\u0430 IV"
   _description: "\u041F\u0440\u0438\u043A\u043E\u043B"
-  _quest: {fileID: 11400000, guid: 81b8ec83c79ee2843a322da85610b8c1, type: 2}
+  _quest: {fileID: 11400000, guid: fe9fa2ad8e0b7084d84399d73419d76d, type: 2}

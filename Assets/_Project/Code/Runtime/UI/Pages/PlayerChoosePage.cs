@@ -2,6 +2,7 @@ using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 using UI.Cards;
 using UI.LevelInfo;
+using UI.QuestInfo;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,7 @@ namespace UI.Pages
     {
         [SerializeField] private CardsView _cardsView;
         [SerializeField] private LevelInfoView _levelInfoView;
+        [SerializeField] private QuestInfoView _questInfoView;
         
         private DiContainer _container;
 
@@ -25,9 +27,11 @@ namespace UI.Pages
         {
             var cardsViewPresenter = _container.Instantiate<CardsViewPresenter>();
             var levelInfoViewPresenter = _container.Instantiate<LevelInfoViewPresenter>();
+            var questInfoViewPresenter = _container.Instantiate<QuestInfoViewPresenter>();
             
             _cardsView.Initialize(cardsViewPresenter);
             _levelInfoView.Initialize(levelInfoViewPresenter);
+            _questInfoView.Initialize(questInfoViewPresenter);
 
             levelInfoViewPresenter.AddMovementRequest.Subscribe((index) =>
             {

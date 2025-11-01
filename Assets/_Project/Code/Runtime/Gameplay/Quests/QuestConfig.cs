@@ -1,23 +1,23 @@
 ﻿using DoubleDCore.Identification;
-using Gameplay.Quests;
 using UnityEngine;
 
-namespace Gameplay.Session
+namespace Gameplay.Quests
 {
-    [CreateAssetMenu(fileName = "Level Config", menuName = "Configs/LevelConfig")]
-    public class LevelConfig : IdentifyingScriptable
+    public abstract class QuestConfig : IdentifyingScriptable
     {
         [SerializeField] private string _name;
         [SerializeField, TextArea] private string _description;
-        [SerializeField] private QuestConfig _quest;
+        [SerializeField, TextArea] private string _tip;
         
         public string Name => _name;
         public string Description => _description;
-        public QuestConfig Quest => _quest;
+        public string Tip => _tip;
         
         protected override string GetIDPrefix()
         {
-            return "level";
+            return "quest";
         }
+        
+        public abstract void Accept(IQuestVisitor visitor);
     }
 }

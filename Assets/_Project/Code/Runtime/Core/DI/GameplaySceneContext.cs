@@ -1,4 +1,5 @@
-﻿using Gameplay.Session;
+﻿using Gameplay.Quests;
+using Gameplay.Session;
 using Gameplay.Skills;
 using Gameplay.UnitCrowd;
 using Gameplay.Units;
@@ -21,6 +22,7 @@ namespace Core.DI
             Container.Bind<SkillUseConfirmator>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<SessionInfo>().AsSingle();
+            Container.Bind<StartLevelQuestConditionChecker>().AsSingle();
 
             Container.Bind<UnitSpawner>().FromNew().AsSingle();
             Container.Bind<DifficultyConverter>().FromNew().AsSingle();
