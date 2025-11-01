@@ -34,14 +34,19 @@ namespace Gameplay.UnitCrowd
             }
         }
 
-        public Unit[] GetUnitsInRadius(Unit unit, float radius)
+        public List<Unit> GetUnitsInRadius(Unit unit, float radius)
         {
             int nearUnits = Physics.OverlapSphereNonAlloc(unit.transform.position, radius, _unitsBuffer, _unitsMask);
-            Unit[] result = new Unit[nearUnits];
-            
+            List<Unit> result = new List<Unit>(nearUnits);
+
             for (int i = 0; i < nearUnits; i++)
-                result[i] = _unitsBuffer[i].GetComponent<Unit>();
-            
+            {
+                var nearUnit = _unitsBuffer[i].GetComponent<Unit>();
+                
+                if (nearUnit.IsInteractable)
+                    result.Add(nearUnit);
+            }
+
             return result;
         }
     }

@@ -11,11 +11,13 @@ namespace Gameplay.UnitCrowd
     [CreateAssetMenu(fileName = "Crowd Config", menuName = "Configs/CrowdConfig", order = 0)]
     public class CrowdConfig : ScriptableConfig
     {
-        [SerializeField] private float _distributionDelay;
+        [SerializeField] private int _distributionDelay;
+        [SerializeField] private int _invincibleDelay;
         [SerializeField] private RangedValueInt _distributionAmount;
         [OdinSerialize] private Dictionary<UnitState, StateConfig> _stateConfigs = new();
         
-        public float DistributionDelay => _distributionDelay;
+        public int DistributionDelay => _distributionDelay;
+        public int InvincibleDelay => _invincibleDelay;
         public RangedValueInt DistributionAmount => _distributionAmount;
         
         public StateConfig GetStateConfig(UnitState state)
@@ -27,7 +29,7 @@ namespace Gameplay.UnitCrowd
     [Serializable]
     public struct StateConfig
     {
-        public float DistributionDelay;
+        public int DistributionDelay;
         public RangedValueInt DistributionAmount;
         public float DistributionRadius;
     }

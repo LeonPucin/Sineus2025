@@ -51,14 +51,14 @@ MonoBehaviour:
       Entry: 7
       Data: Gameplay.UnitCrowd.StateConfig, Assembly-CSharp
     - Name: DistributionDelay
-      Entry: 4
-      Data: 1.5
+      Entry: 3
+      Data: 2
     - Name: DistributionAmount
       Entry: 7
       Data: Game.Utility.RangedValueInt, Assembly-CSharp
     - Name: MinValue
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: MaxValue
       Entry: 3
       Data: 3
@@ -84,14 +84,14 @@ MonoBehaviour:
       Entry: 7
       Data: Gameplay.UnitCrowd.StateConfig, Assembly-CSharp
     - Name: DistributionDelay
-      Entry: 4
-      Data: 2.5
+      Entry: 3
+      Data: 3
     - Name: DistributionAmount
       Entry: 7
       Data: Game.Utility.RangedValueInt, Assembly-CSharp
     - Name: MinValue
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: MaxValue
       Entry: 3
       Data: 3
@@ -113,7 +113,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _distributionDelay: 2
+  _distributionDelay: 1
+  _invincibleDelay: 2
   _distributionAmount:
     MinValue: 2
-    MaxValue: 3
+    MaxValue: 2

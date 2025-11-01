@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
-using DoubleDCore.TimeTools;
 using Gameplay.Movements;
 using Gameplay.Units;
 using UnityEngine;
@@ -14,12 +12,16 @@ namespace Gameplay.UnitCrowd
         private readonly DifficultyConverter _difficultyConverter;
         private readonly CrowdMovementsController _movementsController;
         private readonly CrowdConfig _config;
+        private readonly UnitSpawnerConfig _spawnerConfig;
         private readonly CrowdPlaceController _placeController;
         private readonly Unit _mainUnit;
-        private readonly Dictionary<Unit, Timer> _unitTimers = new();
+        private readonly Dictionary<Unit, MovementTimer> _unitTimers = new();
+        private readonly List<Unit> _currentUnites = new();
+        private readonly MovementTimer _distributionTimer;
         
         public CrowdController(CrowdPlaceController placeController, Unit mainUnit, UnitSpawner unitSpawner,
-            DifficultyConverter difficultyConverter, CrowdMovementsController movementsController, CrowdConfig config)
+            DifficultyConverter difficultyConverter, CrowdMovementsController movementsController, CrowdConfig config,
+            UnitSpawnerConfig spawnerConfig)
         {
             _placeController = placeController;
             _mainUnit = mainUnit;
@@ -27,6 +29,9 @@ namespace Gameplay.UnitCrowd
             _difficultyConverter = difficultyConverter;
             _movementsController = movementsController;
             _config = config;
+            _spawnerConfig = spawnerConfig;
+            
+            _distributionTimer = new MovementTimer(_movementsController);
         }
 
         public void SetupCrowd(MovementSequence movementSequence, int count)
@@ -35,23 +40,23 @@ namespace Gameplay.UnitCrowd
                 _difficultyConverter.ConvertToBrokenPart(movementSequence.CurrentMovements
                     .Select(m => m.DifficultyPoints).Sum());
             
+            _currentUnites.Clear();
+            
             var spawnedUnits = _unitSpawner.Spawn(count, brokenPart);
             _placeController.DistributeUnits(spawnedUnits);
+            _currentUnites.AddRange(spawnedUnits);
             
             _unitTimers.Clear();
             foreach (var spawnedUnit in spawnedUnits)
-                _unitTimers.Add(spawnedUnit, new Timer(TimeBindingType.ScaledTime));
+                _unitTimers.Add(spawnedUnit, new MovementTimer(_movementsController));
             
-            spawnedUnits.Add(_mainUnit);
-            _movementsController.Setup(spawnedUnits, movementSequence);
+            _movementsController.Setup(spawnedUnits, _mainUnit, movementSequence);
             
             Start(); //TODO: invoke in another place after user confirmation
         }
 
         public void Start()
         {
-            _movementsController.Start();
-
             foreach (var (unit, timer) in _unitTimers)
             {
                 if (unit.CurrentState != UnitState.Normal)
@@ -62,6 +67,9 @@ namespace Gameplay.UnitCrowd
                 
                 unit.StateChanged += OnUnitStateChanged;
             }
+            
+            _distributionTimer.Start(_config.DistributionDelay, DistributeRandom);
+            _movementsController.Start();
         }
 
         public void Stop()
@@ -94,21 +102,51 @@ namespace Gameplay.UnitCrowd
                 
                 selectedUnit.SetState(unit.CurrentState);
             }
+            
+            _unitTimers[unit].Start(stateConfig.DistributionDelay, () => DistributeUnit(unit));
         }
         
-        private void OnUnitStateChanged(Unit unit, UnitState state)
+        private void OnUnitStateChanged(Unit unit, UnitState previousState)
         {
-            if (!_unitTimers.ContainsKey(unit))
+            if (unit.CurrentState == UnitState.Invincible || previousState == UnitState.Invincible)
                 return;
             
             var timer = _unitTimers[unit];
             timer.Stop();
+
+            if (unit.CurrentState == UnitState.Normal)
+            {
+                unit.SetState(UnitState.Invincible);
+                timer.Start(_config.InvincibleDelay, () => DisableInvincibility(unit));
+            }
+            else
+            {
+                var stateConfig = _config.GetStateConfig(unit.CurrentState);
+                timer.Start(stateConfig.DistributionDelay, () => DistributeUnit(unit));
+            }
+        }
+        
+        private void DisableInvincibility(Unit unit)
+        {
+            unit.SetState(UnitState.Normal);
+        }
+
+        private void DistributeRandom()
+        {
+            var amount = Random.Range(_config.DistributionAmount.MinValue, _config.DistributionAmount.MaxValue + 1);
+            var possibleUnits = _currentUnites.Where(u => u.CurrentState == UnitState.Normal).ToList();
+
+            for (int i = 0; i < amount && possibleUnits.Count > 0; i++)
+            {
+                var randomIndex = Random.Range(0, possibleUnits.Count);
+                var selectedUnit = possibleUnits[randomIndex];
+                possibleUnits.RemoveAt(randomIndex);
+
+                var randomState = _spawnerConfig.GetRandomBrokenState();
+                selectedUnit.SetState(randomState);
+            }
             
-            if (state == UnitState.Normal)
-                return;
-            
-            var stateConfig = _config.GetStateConfig(state);
-            timer.Start(stateConfig.DistributionDelay, () => DistributeUnit(unit));
+            _distributionTimer.Start(_config.DistributionDelay, DistributeRandom);
         }
     }
 }

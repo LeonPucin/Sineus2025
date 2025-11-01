@@ -1,42 +1,48 @@
 ﻿using System;
 using EPOOutline;
+using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using TMPro;
 using UnityEngine;
 
 namespace Gameplay.Units
 {
-    public class Unit : MonoBehaviour
+    public class Unit : SerializedMonoBehaviour
     {
         [SerializeField] private Animator _animator;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private Outlinable _outlinable;
         [SerializeField] private bool _isInteractable;
 
-        [Header("Debug settings")] [SerializeField]
-        private bool _debug;
-
+        [Header("Debug settings")] 
+        [SerializeField] private bool _debug;
         [SerializeField] private TMP_Text _debugTitle;
-        [SerializeField] private Material _debugMaterial;
-
-        private Material _defaultMaterial;
-
-        public UnitState CurrentState { get; private set; } = UnitState.Normal;
-        public bool IsInteractable => _isInteractable;
         
+        [OdinSerialize, ReadOnly] public UnitState CurrentState { get; private set; } = UnitState.Normal;
+        public bool IsInteractable => _isInteractable;
+        public Animator Animator => _animator;
+        
+        //<summary>
+        /// Invoked when unit state is changed
+        /// Unit - the unit whose state has changed
+        /// UnitState - previous state of the unit
+        //</summary>
         public event Action<Unit, UnitState> StateChanged;
-
-        private void Awake()
-        {
-            _defaultMaterial = _renderer.sharedMaterial;
-        }
 
         public void PlayMovement(AnimationClip animationClip)
         {
-            //_animator.Play(animationClip.name);
             _animator.SetTrigger(animationClip.name);
 
             if (_debug)
-                _debugTitle.text = animationClip.name;
+                _debugTitle.text = CurrentState.ToString();
+        }
+
+        public void PlayMovement(AnimationClip animationClip, float clipTime)
+        {
+            _animator.Play(animationClip.name, 0, clipTime);
+            
+            if (_debug)
+                _debugTitle.text = CurrentState.ToString();
         }
 
         public void SetState(UnitState state)
@@ -45,14 +51,11 @@ namespace Gameplay.Units
             CurrentState = state;
             
             if (state != oldState)
-                StateChanged?.Invoke(this, state);
+                StateChanged?.Invoke(this, oldState);
         }
 
         public void SetHighlighted(bool highlighted)
         {
-            if (_debug)
-                _renderer.material = highlighted ? _debugMaterial : _defaultMaterial;
-
             if (_outlinable)
             {
                 _outlinable.enabled = highlighted;
