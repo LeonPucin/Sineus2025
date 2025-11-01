@@ -165,7 +165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -160}
+  m_AnchoredPosition: {x: 0, y: -506.8}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2401811337711289473
@@ -196,17 +196,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041C\u0435\u0441\u0441\u0430 1"
+  m_text: "\u043C\u0435\u0441\u0441\u0430 1"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4431e87333c584bce803b4f1fb13023f, type: 2}
+  m_sharedMaterial: {fileID: 7833239786471370286, guid: 4431e87333c584bce803b4f1fb13023f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -223,8 +223,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 91.8
+  m_fontSizeBase: 91.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -301,11 +301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2473894224061667478, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 320
+      value: 379.2
       objectReference: {fileID: 0}
     - target: {fileID: 2473894224061667478, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 140
       objectReference: {fileID: 0}
     - target: {fileID: 2473894224061667478, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -341,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2473894224061667478, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 120
+      value: 343.4
       objectReference: {fileID: 0}
     - target: {fileID: 2473894224061667478, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -358,6 +358,14 @@ PrefabInstance:
     - target: {fileID: 2845301618532703947, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
       propertyPath: m_Name
       value: StartButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504913507143259242, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
+      propertyPath: m_fontSize
+      value: 46.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504913507143259242, guid: 9bb47cf0656c1423489302d67c34561b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 46.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
