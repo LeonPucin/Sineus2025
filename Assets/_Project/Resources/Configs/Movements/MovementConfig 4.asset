@@ -15,3 +15,7 @@ MonoBehaviour:
   _id: movement/3
   _animationClip: {fileID: -203655887218126122, guid: 1ac6f44aa632d4bde8ceb2e3e71ee85c, type: 3}
   _difficultyPoints: 0
+  _title: 
+  _description: 
+  _icon: {fileID: 0}
+  _audioClip: {fileID: 0}

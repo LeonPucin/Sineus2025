@@ -10,7 +10,6 @@ namespace Gameplay.Movements
         [SerializeField] private int _difficultyPoints;
 
         [SerializeField] private string _title;
-        [SerializeField] private string _description;
         [SerializeField] private Sprite _icon;
         [SerializeField] private AudioClip _audioClip;
 
@@ -18,7 +17,6 @@ namespace Gameplay.Movements
         public int DifficultyPoints => _difficultyPoints;
 
         public string Title => _title;
-        public string Description => _description;
         public Sprite Icon => _icon;
         public AudioClip AudioClip => _audioClip;
 

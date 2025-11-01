@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd2cc1c4e2e45f582670f9f13d32dc3, type: 3}
   m_Name: MovementConfig 6
   m_EditorClassIdentifier: 
-  _id: movement/3
+  _id: movement/7
   _animationClip: {fileID: -203655887218126122, guid: 8cae5c5ff77034715afdb36c30871f87, type: 3}
   _difficultyPoints: 0
+  _title: 
+  _description: 
+  _icon: {fileID: 0}
+  _audioClip: {fileID: 0}

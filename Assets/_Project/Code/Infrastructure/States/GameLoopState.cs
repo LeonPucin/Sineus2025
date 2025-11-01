@@ -6,6 +6,7 @@ using DoubleDCore.Periphery.Base;
 using DoubleDCore.Storage.Base;
 using Game.Input.Maps;
 using Gameplay.Movements;
+using Gameplay.Session;
 using Gameplay.UnitCrowd;
 using Gameplay.Units;
 using UnityEngine.SceneManagement;
@@ -65,6 +66,7 @@ namespace Infrastructure.States
             _diContainer.Bind<UnitSpawnerConfig>().FromInstance(configsResource.Get<UnitSpawnerConfig>()).AsSingle();
             _diContainer.Bind<CrowdMovementsConfig>().FromInstance(configsResource.Get<CrowdMovementsConfig>()).AsSingle();
             _diContainer.Bind<CrowdConfig>().FromInstance(configsResource.Get<CrowdConfig>()).AsSingle();
+            _diContainer.Bind<SessionConfig>().FromInstance(configsResource.Get<SessionConfig>()).AsSingle();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Gameplay.Movements;
+using Gameplay.Session;
 using Gameplay.UnitCrowd;
 using UnityEngine;
 using Zenject;
@@ -11,19 +12,23 @@ namespace Systems.Mocks
         [SerializeField] private int _unitCount = 20;
         
         private CrowdController _crowdController;
+        private SessionInfo _sessionInfo;
 
         [Inject]
-        private void Init(CrowdController crowdController)
+        private void Init(CrowdController crowdController, SessionInfo sessionInfo)
         {
             _crowdController = crowdController;
+            _sessionInfo = sessionInfo;
         }
         
         private void Start()
         {
-            var movementSequence = new MovementSequence();
-            
-            foreach (var config in _startSeq)
-                movementSequence.AddMovement(config);
+            var movementSequence = _sessionInfo.CurrentSequence;
+
+            for (int i = 0; i < _startSeq.Length; i++)
+            {
+                movementSequence.SetMovement(i, _startSeq[i]);
+            }
             
             _crowdController.SetupCrowd(movementSequence, _unitCount);
         }

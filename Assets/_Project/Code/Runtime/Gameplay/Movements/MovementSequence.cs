@@ -1,26 +1,35 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Gameplay.Movements
 {
     public class MovementSequence
     {
-        private List<MovementConfig> _movements = new List<MovementConfig>();
+        private readonly MovementConfig[] _sequence;
         
-        public IReadOnlyList<MovementConfig> CurrentMovements => _movements;
+        public IReadOnlyList<MovementConfig> CurrentMovements => _sequence
+            .Where(x => x != null).ToList();
         
-        public void AddMovement(MovementConfig movementConfig)
+        public int Length => _sequence.Length;
+
+        public MovementSequence(int len)
         {
-            _movements.Add(movementConfig);
+            _sequence = new MovementConfig[len];
         }
         
-        public void RemoveMovement(MovementConfig movementConfig)
+        public MovementConfig GetMovement(int index)
         {
-            _movements.Remove(movementConfig);
+            return _sequence[index];
+        }
+
+        public void SetMovement(int index, MovementConfig config)
+        {
+            _sequence[index] = config;
         }
 
         public void RemoveMovement(int index)
         {
-            _movements.RemoveAt(index);
+            _sequence[index] = null;
         }
     }
 }
