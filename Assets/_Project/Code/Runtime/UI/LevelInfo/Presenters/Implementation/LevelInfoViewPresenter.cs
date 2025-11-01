@@ -1,4 +1,5 @@
-﻿using Gameplay.Session;
+﻿using Gameplay.Quests;
+using Gameplay.Session;
 using UniRx;
 using Zenject;
 
@@ -7,9 +8,12 @@ namespace UI.LevelInfo
     public class LevelInfoViewPresenter : ILevelInfoViewPresenter
     {
         private readonly SessionInfo _sessionInfo;
+        private readonly StartLevelQuestConditionChecker _startLevelChecker;
+        private readonly LevelStarter _levelStarter;
         private readonly StringReactiveProperty _name = new("");
         private readonly StringReactiveProperty _description = new("");
         private readonly CompositeDisposable _disposables = new();
+        private readonly BoolReactiveProperty _canPlayLevel;
         
         public ICurrentSequenceViewPresenter CurrentSequenceViewPresenter { get; }
         public ICurrentDifficultyViewPresenter CurrentDifficultyViewPresenter { get; }
@@ -17,12 +21,18 @@ namespace UI.LevelInfo
         public IReadOnlyReactiveProperty<string> Name => _name;
         public IReadOnlyReactiveProperty<string> Description => _description;
         
-        public ReactiveCommand PlayCommand { get; } = new();
+        public ReactiveCommand PlayRequest { get; }
         public ReactiveCommand<int> AddMovementRequest { get; } = new();
 
-        public LevelInfoViewPresenter(DiContainer diContainer, SessionInfo sessionInfo)
+        public LevelInfoViewPresenter(DiContainer diContainer, SessionInfo sessionInfo,
+            StartLevelQuestConditionChecker startLevelChecker, LevelStarter levelStarter)
         {
             _sessionInfo = sessionInfo;
+            _startLevelChecker = startLevelChecker;
+            _levelStarter = levelStarter;
+
+            _canPlayLevel = new(_startLevelChecker.CanStartLevel());
+            PlayRequest = new ReactiveCommand(_canPlayLevel);
             
             CurrentSequenceViewPresenter = diContainer.Instantiate<CurrentSequenceViewPresenter>();
             CurrentDifficultyViewPresenter = diContainer.Instantiate<CurrentDifficultyViewPresenter>();
@@ -32,8 +42,19 @@ namespace UI.LevelInfo
                 AddMovementRequest.Execute(index);
             }).AddTo(_disposables);
             
+            PlayRequest.Subscribe((_) =>
+            {
+                _levelStarter.StartLevel();
+            }).AddTo(_disposables);
+            
             _sessionInfo.LevelChanged += OnLevelChanged;
+            _sessionInfo.SequenceMovementChanged += OnMovementChanged;
             OnLevelChanged();
+        }
+
+        private void OnMovementChanged(int _)
+        {
+            _canPlayLevel.Value = _startLevelChecker.CanStartLevel();
         }
 
         private void OnLevelChanged()
@@ -46,6 +67,7 @@ namespace UI.LevelInfo
         ~LevelInfoViewPresenter()
         {
             _sessionInfo.LevelChanged -= OnLevelChanged;
+            _sessionInfo.SequenceMovementChanged -= OnMovementChanged;
             _disposables.Dispose();
         }
     }

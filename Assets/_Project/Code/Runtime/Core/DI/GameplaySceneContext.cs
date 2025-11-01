@@ -30,6 +30,7 @@ namespace Core.DI
             
             Container.Bind<CrowdMovementsController>().FromNew().AsSingle();
             Container.Bind<CrowdController>().FromNew().AsSingle();
+            Container.Bind<LevelStarter>().AsSingle();
         }
     }
 }

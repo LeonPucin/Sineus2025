@@ -10,10 +10,12 @@ namespace Gameplay.Session
         [SerializeField] private string _name;
         [SerializeField, TextArea] private string _description;
         [SerializeField] private QuestConfig _quest;
+        [SerializeField] private float _timeLimit;
         
         public string Name => _name;
         public string Description => _description;
         public QuestConfig Quest => _quest;
+        public float TimeLimit => _timeLimit;
         
         protected override string GetIDPrefix()
         {

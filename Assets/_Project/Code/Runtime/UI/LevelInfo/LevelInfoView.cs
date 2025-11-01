@@ -20,7 +20,7 @@ namespace UI.LevelInfo
             
             presenter.Name.Subscribe((txt) => _name.text = txt).AddTo(this);
             presenter.Description.Subscribe((txt) => _description.text = txt).AddTo(this);
-            presenter.PlayCommand.BindTo(_playButton).AddTo(this);
+            presenter.PlayRequest.BindTo(_playButton).AddTo(this);
         }
     }
 }

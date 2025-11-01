@@ -8,7 +8,7 @@ namespace UI.LevelInfo
         ICurrentDifficultyViewPresenter CurrentDifficultyViewPresenter { get; }
         IReadOnlyReactiveProperty<string> Name { get; }
         IReadOnlyReactiveProperty<string> Description { get; }
-        ReactiveCommand PlayCommand { get; }
+        ReactiveCommand PlayRequest { get; }
         ReactiveCommand<int> AddMovementRequest { get; }
     }
 }
