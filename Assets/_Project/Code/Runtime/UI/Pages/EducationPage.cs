@@ -1,28 +1,25 @@
-using DoubleDCore.UI;
+﻿using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 using Gameplay.Session;
-using Gameplay.UnitCrowd;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Pages
 {
-    public class StartLevelPage : MonoPage, IUIPage
+    public class EducationPage : MonoPage, IUIPage
     {
         [SerializeField] private Button _startButton;
-        [SerializeField] private TMP_Text _levelTitle;
         
+        private IUIManager _uiManager;
         private LevelStarter _levelStarter;
         private SessionInfo _sessionInfo;
-        private IUIManager _uiManager;
 
         [Zenject.Inject]
-        private void Init(LevelStarter levelStarter, SessionInfo sessionInfo, IUIManager uiManager)
+        private void Init(IUIManager uiManager, LevelStarter levelStarter, SessionInfo sessionInfo)
         {
+            _uiManager = uiManager;
             _levelStarter = levelStarter;
             _sessionInfo = sessionInfo;
-            _uiManager = uiManager;
         }
         
         public override void Initialize()
@@ -35,19 +32,13 @@ namespace UI.Pages
             SetCanvasState(true);
             
             _startButton.onClick.AddListener(OnStartButtonClicked);
-            _levelTitle.text = _sessionInfo.CurrentLevel.Name;
         }
 
-        private void OnStartButtonClicked()
+        private void OnStartButtonClicked() 
         {
-            if (_sessionInfo.IsEducated == false)
-            {
-                _uiManager.OpenPage<EducationPage>();
-            }
-            else
-            {
-                _levelStarter.StartLevel();
-            }
+            _sessionInfo.IsEducated = true;
+            _uiManager.ClosePage<EducationPage>();
+            _levelStarter.StartLevel();
         }
 
         public override void Close()

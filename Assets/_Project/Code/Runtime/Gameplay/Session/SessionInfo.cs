@@ -13,6 +13,8 @@ namespace Gameplay.Session
         public LevelConfig CurrentLevel => _levels[_currentLevelIndex];
         public MovementSequence CurrentSequence { get; private set; }
 
+        public bool IsEducated = false;
+
         public event Action LevelChanged;
         public event Action<int> SequenceMovementChanged;
         

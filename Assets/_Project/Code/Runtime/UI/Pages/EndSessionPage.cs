@@ -55,7 +55,7 @@ namespace UI.Pages
             {
                 _uiManager.OpenPage<EndGamePage, EndGameInfo>(new EndGameInfo { IsWin = false });
             }
-            else if (_sessionInfo.IsLastLevel() && _context.IsSuccess)
+            else if (_context.IsLastLevel && _context.IsSuccess)
             {
                 _uiManager.OpenPage<EndGamePage, EndGameInfo>(new EndGameInfo { IsWin = true });
             }
@@ -82,12 +82,14 @@ namespace UI.Pages
         public float OldValue { get; }
         public float NewValue { get; }
         public bool IsSuccess { get; }
+        public bool IsLastLevel { get; }
 
-        public EndSessionInfo(float oldValue, float newValue, bool isSuccess)
+        public EndSessionInfo(float oldValue, float newValue, bool isSuccess, bool isLastLevel)
         {
             OldValue = oldValue;
             NewValue = newValue;
             IsSuccess = isSuccess;
+            IsLastLevel = isLastLevel;
         }
     }
 }

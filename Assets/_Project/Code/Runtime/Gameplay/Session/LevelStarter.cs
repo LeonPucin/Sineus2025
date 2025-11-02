@@ -78,6 +78,7 @@ namespace Gameplay.Session
             _uiManager.ClosePage<GameplayPage>();
 
             bool isWin = _winChecker.IsLevelWinned();
+            bool isLastLevel = _sessionInfo.IsLastLevel();
             float currentRage = _rageState.Amount;
 
             if (!isWin)
@@ -91,7 +92,7 @@ namespace Gameplay.Session
             if (!_sessionInfo.IsLastLevel() && isWin)
                 _sessionInfo.MoveToNextLevel();
             
-            _uiManager.OpenPage<EndSessionPage, EndSessionInfo>(new EndSessionInfo(currentRage, newRage, isWin));
+            _uiManager.OpenPage<EndSessionPage, EndSessionInfo>(new EndSessionInfo(currentRage, newRage, isWin, isLastLevel));
         }
     }
 }
