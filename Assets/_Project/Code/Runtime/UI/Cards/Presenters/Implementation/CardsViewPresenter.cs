@@ -30,6 +30,14 @@ namespace UI.Cards
             }
             
             _sessionInfo.SequenceMovementChanged += OnSequenceChanged;
+            _sessionInfo.LevelChanged += OnLevelChanged;
+            
+            OnLevelChanged();
+        }
+
+        private void OnLevelChanged()
+        {
+            OnSequenceChanged(0);
         }
 
         private void OnSequenceChanged(int ind)
