@@ -1,4 +1,5 @@
-﻿using Gameplay.Quests;
+﻿using Gameplay.Movements;
+using Gameplay.Quests;
 using Gameplay.Session;
 using UniRx;
 using Zenject;
@@ -22,7 +23,7 @@ namespace UI.LevelInfo
         public IReadOnlyReactiveProperty<string> Description => _description;
         
         public ReactiveCommand PlayRequest { get; }
-        public ReactiveCommand<int> AddMovementRequest { get; } = new();
+        public ReactiveCommand<MovementConfig> AddMovementRequest { get; } = new();
 
         public LevelInfoViewPresenter(DiContainer diContainer, SessionInfo sessionInfo,
             StartLevelQuestConditionChecker startLevelChecker, LevelStarter levelStarter)
@@ -37,9 +38,9 @@ namespace UI.LevelInfo
             CurrentSequenceViewPresenter = diContainer.Instantiate<CurrentSequenceViewPresenter>();
             CurrentDifficultyViewPresenter = diContainer.Instantiate<CurrentDifficultyViewPresenter>();
             
-            CurrentSequenceViewPresenter.AddMovementRequest.Subscribe((index) =>
+            AddMovementRequest.Subscribe((config) =>
             {
-                AddMovementRequest.Execute(index);
+                CurrentSequenceViewPresenter.AddMovementRequest.Execute(config);
             }).AddTo(_disposables);
             
             PlayRequest.Subscribe((_) =>

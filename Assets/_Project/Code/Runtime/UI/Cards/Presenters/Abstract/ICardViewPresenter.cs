@@ -11,8 +11,7 @@ namespace UI.Cards
         int DifficultyPoints { get; }
         IReadOnlyReactiveProperty<bool> CanBeSelected { get; }
         ReactiveCommand SelectRequest { get; }
-        ReactiveCommand<int> SelectCommand { get; }
-        ReactiveCommand DisableSelectionCommand { get; }
-        ReactiveCommand<(int, MovementConfig)> SelectedEvent { get; }
+        ReactiveCommand<bool> SetSelectionAvailabilityCommand { get; }
+        ReactiveCommand<MovementConfig> SelectedEvent { get; }
     }
 }

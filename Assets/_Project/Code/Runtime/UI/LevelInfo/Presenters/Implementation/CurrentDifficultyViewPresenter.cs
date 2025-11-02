@@ -16,7 +16,8 @@ namespace UI.LevelInfo
         public CurrentDifficultyViewPresenter(MovementConfigsCatalog movementsCatalog, SessionInfo sessionInfo)
         {
             _sessionInfo = sessionInfo;
-            MaxDifficulty = movementsCatalog.GetAllItems().Sum(x => x.DifficultyPoints);
+            MaxDifficulty = movementsCatalog.GetAllItems().Max(x => x.DifficultyPoints) *
+                            sessionInfo.CurrentSequence.Length;
 
             _sessionInfo.SequenceMovementChanged += OnSequenceMovementChanged;
             _sessionInfo.LevelChanged += OnLevelChanged;

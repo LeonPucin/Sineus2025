@@ -1,4 +1,5 @@
-﻿using Gameplay.Session;
+﻿using Gameplay.Movements;
+using Gameplay.Session;
 using UniRx;
 using Zenject;
 
@@ -9,8 +10,10 @@ namespace UI.LevelInfo
         private readonly SessionInfo _sessionInfo;
         private readonly CompositeDisposable _disposables = new();
         
+        private MovementConfig _movementConfig;
+        
         public ISequenceSlotViewPresenter[] SequenceSlots { get; }
-        public ReactiveCommand<int> AddMovementRequest { get; } = new();
+        public ReactiveCommand<MovementConfig> AddMovementRequest { get; } = new();
 
         public CurrentSequenceViewPresenter(SessionInfo sessionInfo, DiContainer diContainer)
         {
@@ -25,11 +28,32 @@ namespace UI.LevelInfo
                 
                 slotPresenter.AddRequest.Subscribe((_) =>
                 {
-                    AddMovementRequest.Execute(currentIndex);
+                    if (_movementConfig != null && _sessionInfo.CurrentSequence.GetMovement(currentIndex) == null)
+                    {
+                        _sessionInfo.CurrentSequence.SetMovement(currentIndex, _movementConfig);
+                        _movementConfig = null;
+                        
+                        foreach (var slot in SequenceSlots)
+                        {
+                            slot.SetAdditionAvailableCommand.Execute(false);
+                            slot.SetRemovalAvailableCommand.Execute(true);
+                        }
+                    }
                 }).AddTo(_disposables);
                 
                 SequenceSlots[i] = slotPresenter;
             }
+            
+            AddMovementRequest.Subscribe(config =>
+            {
+                _movementConfig = config;
+
+                foreach (var slot in SequenceSlots)
+                {
+                    slot.SetAdditionAvailableCommand.Execute(true);
+                    slot.SetRemovalAvailableCommand.Execute(false);
+                }
+            }).AddTo(_disposables);
         }
 
         ~CurrentSequenceViewPresenter()

@@ -17,11 +17,15 @@ namespace UI.LevelInfo
 
         public void Initialize(ISequenceSlotViewPresenter presenter)
         {
-            presenter.HasMovement.Subscribe((has) =>
+            presenter.CanAddMovement.Subscribe((can) =>
             {
-                _addRoot.SetActive(!has);
-                _addIconBack.SetActive(has);
-                _removeRoot.SetActive(has);
+                _addRoot.SetActive(can);
+                _addIconBack.SetActive(!can);
+            }).AddTo(this);
+            
+            presenter.CanRemoveMovement.Subscribe((can) =>
+            {
+                _removeRoot.SetActive(can);
             }).AddTo(this);
 
             presenter.Icon.Subscribe((icon) =>

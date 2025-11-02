@@ -6,6 +6,6 @@ namespace UI.LevelInfo
     public interface ICurrentSequenceViewPresenter
     {
         ISequenceSlotViewPresenter[] SequenceSlots { get; }
-        ReactiveCommand<int> AddMovementRequest { get; }
+        ReactiveCommand<MovementConfig> AddMovementRequest { get; }
     }
 }

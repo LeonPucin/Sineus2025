@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Gameplay.Movements;
+using UniRx;
 
 namespace UI.LevelInfo
 {
@@ -9,6 +10,6 @@ namespace UI.LevelInfo
         IReadOnlyReactiveProperty<string> Name { get; }
         IReadOnlyReactiveProperty<string> Description { get; }
         ReactiveCommand PlayRequest { get; }
-        ReactiveCommand<int> AddMovementRequest { get; }
+        ReactiveCommand<MovementConfig> AddMovementRequest { get; }
     }
 }

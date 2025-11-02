@@ -1,5 +1,5 @@
 ﻿using TMPro;
-using UniRx;
+using UI.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +10,10 @@ namespace UI.Cards
         [SerializeField] private Image _icon;
         [SerializeField] private TMP_Text _name;
         [SerializeField] private DifficultyPointsDisplayer _difficultyPointsDisplayer;
+        [SerializeField] private PointerCapturer _pointerCapturer;
         
         [Header("Selection")]
         [SerializeField] private GameObject _outline;
-        [SerializeField] private Button _selectButton;
         
         private ICardViewPresenter _presenter;
 
@@ -23,16 +23,40 @@ namespace UI.Cards
             _icon.sprite = _presenter.Icon;
             _name.text = _presenter.Name;
             _difficultyPointsDisplayer.Display(_presenter.DifficultyPoints);
-            
-            presenter.CanBeSelected.Subscribe((canBe) =>
+        }
+
+        private void OnEnable()
+        {
+            _pointerCapturer.Entered += OnPointerEntered;
+            _pointerCapturer.Exited += OnPoinerExited;
+            _pointerCapturer.Clicked += OnClicked;
+        }
+
+        private void OnPointerEntered()
+        {
+            if (_presenter.CanBeSelected.Value)
+                _outline.SetActive(true);
+        }
+        
+        private void OnPoinerExited()
+        {
+            _outline.SetActive(false);
+        }
+
+        private void OnClicked()
+        {
+            if (_presenter.CanBeSelected.Value)
             {
-                _outline.SetActive(canBe);
-                _selectButton.enabled = canBe;
-            }).AddTo(this);
-            
-            _selectButton.OnClickAsObservable()
-                .Subscribe(_ => _presenter.SelectRequest.Execute())
-                .AddTo(this);
+                _presenter.SelectRequest.Execute();
+                _outline.SetActive(false);
+            }
+        }
+
+        private void OnDisable()
+        {
+            _pointerCapturer.Entered -= OnPointerEntered;
+            _pointerCapturer.Exited -= OnPoinerExited;
+            _pointerCapturer.Clicked -= OnClicked;
         }
     }
 }

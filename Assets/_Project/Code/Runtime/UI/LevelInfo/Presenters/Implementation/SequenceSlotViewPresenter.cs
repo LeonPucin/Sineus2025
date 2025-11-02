@@ -13,21 +13,38 @@ namespace UI.LevelInfo
         private readonly ReactiveProperty<Sprite> _icon = new(null);
         private readonly CompositeDisposable _disposables = new();
         
-        public IReadOnlyReactiveProperty<bool> HasMovement => _hasMovement;
+        private readonly BoolReactiveProperty _canAddMovement = new(false);
+        private readonly BoolReactiveProperty _canRemoveMovement = new(false);
+        
         public IReadOnlyReactiveProperty<Sprite> Icon => _icon;
+        
+        public IReadOnlyReactiveProperty<bool> CanAddMovement => _canAddMovement;
+        public IReadOnlyReactiveProperty<bool> CanRemoveMovement => _canRemoveMovement;
         
         public ReactiveCommand RemoveRequest { get; }
         public ReactiveCommand AddRequest { get; }
+        public ReactiveCommand<bool> SetAdditionAvailableCommand { get; } = new();
+        public ReactiveCommand<bool> SetRemovalAvailableCommand { get; } = new();
         
         public SequenceSlotViewPresenter(SessionInfo sessionInfo, int movementIndex)
         {
             _sessionInfo = sessionInfo;
             _movementIndex = movementIndex;
             
-            RemoveRequest = new ReactiveCommand(_hasMovement);
-            AddRequest = new ReactiveCommand(_hasNotMovement);
+            RemoveRequest = new ReactiveCommand(_canRemoveMovement);
+            AddRequest = new ReactiveCommand(_canAddMovement);
             
             RemoveRequest.Subscribe(OnRemoveRequested).AddTo(_disposables);
+
+            SetAdditionAvailableCommand.Subscribe((canAdd) =>
+            {
+                _canAddMovement.Value = canAdd && _hasNotMovement.Value;
+            }).AddTo(_disposables);
+            
+            SetRemovalAvailableCommand.Subscribe((canRemove) =>
+            {
+                _canRemoveMovement.Value = canRemove && _hasMovement.Value;
+            }).AddTo(_disposables);
             
             _sessionInfo.SequenceMovementChanged += OnSequenceMovementChanged;
             _sessionInfo.LevelChanged += OnLevelChanged;
@@ -58,6 +75,9 @@ namespace UI.LevelInfo
             _hasMovement.Value = movement != null;
             _hasNotMovement.Value = movement == null;
             _icon.Value = movement != null ? movement.Icon : null;
+            
+            _canAddMovement.Value = _canAddMovement.Value && _hasNotMovement.Value;
+            _canRemoveMovement.Value = _canRemoveMovement.Value && _hasMovement.Value;
         }
 
         ~SequenceSlotViewPresenter()

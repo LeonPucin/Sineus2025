@@ -2,7 +2,6 @@
 using Gameplay.Movements;
 using Gameplay.Session;
 using UniRx;
-using UnityEngine;
 
 namespace UI.Cards
 {
@@ -12,7 +11,7 @@ namespace UI.Cards
         private readonly CompositeDisposable _disposables = new CompositeDisposable();
         
         public ICardViewPresenter[] Cards { get; }
-        public ReactiveCommand<int> SelectCardCommand { get; } = new();
+        public ReactiveCommand<MovementConfig> SelectCardEvent { get; } = new();
 
         public CardsViewPresenter(MovementConfigsCatalog movementsCatalog, SessionInfo sessionInfo)
         {
@@ -21,25 +20,31 @@ namespace UI.Cards
 
             foreach (var card in Cards)
             {
-                card.SelectedEvent.Subscribe((info) =>
+                card.SelectedEvent.Subscribe((config) =>
                 {
                     foreach (var cardPresenter in Cards)
-                        cardPresenter.DisableSelectionCommand.Execute();
+                        cardPresenter.SetSelectionAvailabilityCommand.Execute(false);
                     
-                    _sessionInfo.CurrentSequence.SetMovement(info.Item1, info.Item2);
+                    SelectCardEvent.Execute(config);
                 }).AddTo(_disposables);
             }
             
-            SelectCardCommand.Subscribe((index) =>
-            {
-                foreach (var card in Cards)
-                    card.SelectCommand.Execute(index);
-            }).AddTo(_disposables);
+            _sessionInfo.SequenceMovementChanged += OnSequenceChanged;
         }
-        
+
+        private void OnSequenceChanged(int ind)
+        {
+            var sequence = _sessionInfo.CurrentSequence;
+            bool hasFreeSlots = sequence.ValidSequence.Count < sequence.Length;
+            
+            foreach (var card in Cards)
+                card.SetSelectionAvailabilityCommand.Execute(hasFreeSlots);
+        }
+
         ~CardsViewPresenter()
         {
             _disposables.Dispose();
+            _sessionInfo.SequenceMovementChanged -= OnSequenceChanged;
         }
     }
 }

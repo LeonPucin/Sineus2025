@@ -6,6 +6,6 @@ namespace UI.Cards
     public interface ICardsViewPresenter
     {
         ICardViewPresenter[] Cards { get; }
-        ReactiveCommand<int> SelectCardCommand { get; }
+        ReactiveCommand<MovementConfig> SelectCardEvent { get; }
     }
 }

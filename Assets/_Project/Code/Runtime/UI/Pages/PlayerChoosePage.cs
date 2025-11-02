@@ -36,9 +36,9 @@ namespace UI.Pages
             _questInfoView.Initialize(questInfoViewPresenter);
             _rageView.Initialize(rageViewPresenter);
 
-            levelInfoViewPresenter.AddMovementRequest.Subscribe((index) =>
+            cardsViewPresenter.SelectCardEvent.Subscribe((config) =>
             {
-                cardsViewPresenter.SelectCardCommand.Execute(index);
+                levelInfoViewPresenter.AddMovementRequest.Execute(config);
             }).AddTo(this);
             
             SetCanvasState(true);
