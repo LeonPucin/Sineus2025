@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +27,8 @@ namespace UI.Gameplay
             _presenter.NormalUnitsPart
                 .Subscribe(OnPartUpdated)
                 .AddTo(_disposables);
+
+            _stateSlider.value = _presenter.NormalUnitsPart.Value;
         }
 
         private void OnPartUpdated(float part)

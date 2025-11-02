@@ -1,6 +1,8 @@
 using DG.Tweening;
 using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
+using Gameplay.Rage;
+using Gameplay.Session;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,19 +21,25 @@ namespace UI.Pages
         [SerializeField] private float _startDelay = 0.5f;
         
         private IUIManager _uiManager;
+        private RageState _rageState;
+        private SessionInfo _sessionInfo;
+        private EndSessionInfo _context;
 
         [Zenject.Inject]
-        private void Init(IUIManager uiManager)
+        private void Init(IUIManager uiManager, RageState rageState, SessionInfo sessionInfo)
         {
             _uiManager = uiManager;
+            _rageState = rageState;
+            _sessionInfo = sessionInfo;
         }
 
         public void Open(EndSessionInfo context)
         {
+            _context = context;
+            
             SetCanvasState(true);
             
             _text.text = context.IsSuccess ? _winText : _loseText;
-            _slider.gameObject.SetActive(!context.IsSuccess);
             
             _slider.fillAmount = context.OldValue;
             _slider.DOFillAmount(context.NewValue, _duration).SetEase(Ease.OutCubic).SetDelay(_startDelay);
@@ -42,7 +50,19 @@ namespace UI.Pages
         private void OnCloseRequested()
         {
             _uiManager.ClosePage<EndSessionPage>();
-            _uiManager.OpenPage<PlayerChoosePage>();
+
+            if (_rageState.Amount == 0)
+            {
+                _uiManager.OpenPage<EndGamePage, EndGameInfo>(new EndGameInfo { IsWin = false });
+            }
+            else if (_sessionInfo.IsLastLevel() && _context.IsSuccess)
+            {
+                _uiManager.OpenPage<EndGamePage, EndGameInfo>(new EndGameInfo { IsWin = true });
+            }
+            else
+            {
+                _uiManager.OpenPage<PlayerChoosePage>();
+            }
         }
 
         public override void Initialize()
