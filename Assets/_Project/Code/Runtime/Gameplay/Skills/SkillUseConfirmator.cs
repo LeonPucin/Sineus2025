@@ -17,6 +17,7 @@ namespace Gameplay.Skills
         private InputControls _inputControls;
         private SkillUnitsChooser _unitsChooser;
         private List<Unit> _lastResult;
+        private HighlightColorConverter _colorConverter;
 
         public event Action<SkillConfig, IEnumerable<Unit>> Confirmed;
         public event Action Cancelled;
@@ -24,8 +25,9 @@ namespace Gameplay.Skills
         public event Action<bool, Vector3, float> AreaChecked;
 
         [Zenject.Inject]
-        private void Init(IInputService<InputControls> inputService)
+        private void Init(IInputService<InputControls> inputService, HighlightColorConverter colorConverter)
         {
+            _colorConverter = colorConverter;
             _inputControls = inputService.GetInputProvider();
             _unitsChooser = new SkillUnitsChooser(100f, _unitMask, _areaMask, _camera);
         }
@@ -102,7 +104,7 @@ namespace Gameplay.Skills
             DisableLastHighlight();
             
             foreach (var unit in result)
-                unit.SetHighlighted(true);
+                unit.SetHighlighted(true, _colorConverter.GetHighlightColor(unit, _currentSkill));
             
             _lastResult = result.ToList();
         }
@@ -112,7 +114,7 @@ namespace Gameplay.Skills
             if (_lastResult != null)
             {
                 foreach (var unit in _lastResult)
-                    unit.SetHighlighted(false);
+                    unit.SetHighlighted(false, Color.white);
             }
         }
     }

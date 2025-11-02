@@ -28,6 +28,7 @@ namespace Core.DI
 
             Container.Bind<SessionInfo>().AsSingle();
             Container.Bind<RageState>().AsSingle();
+            Container.Bind<HighlightColorConverter>().AsSingle();
             Container.Bind<StartLevelQuestConditionChecker>().AsSingle();
 
             Container.Bind<LevelTimer>().AsSingle();

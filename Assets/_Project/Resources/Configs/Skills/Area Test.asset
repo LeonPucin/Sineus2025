@@ -18,5 +18,6 @@ MonoBehaviour:
   _description: 
   _cooldown: 6
   _alterKey: 19
+  _skillColor: {r: 0.09225645, g: 0.8490566, b: 0, a: 1}
   _radius: 2.5
   _skillTargets: 0200000001000000

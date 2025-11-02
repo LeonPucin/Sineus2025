@@ -30,6 +30,7 @@ namespace UI.Skills.Presenters
         public ReactiveCommand ConfirmCommand { get; }
         public string AlterKeyName { get; }
         public Sprite Icon => _connectedSkill.Icon;
+        public Color SkillColor => _connectedSkill.SkillColor;
 
         public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill)
         {

@@ -19,43 +19,13 @@ namespace Gameplay.Units
         
         public void ChangeOutline(UnitState newState)
         {
-            // if (_statesOutlines.ContainsKey(newState))
-            // {
-            //     _lastOutlineSettings = _statesOutlines[newState];
-            //
-            //     if (!_isHighlighted)
-            //     {
-            //         UseSettings(_statesOutlines[newState]);
-            //         _outlinable.enabled = true;
-            //     }
-            // }
-            // else
-            // {
-            //     _lastOutlineSettings = null;
-            //     
-            //     if (!_isHighlighted)
-            //         _outlinable.enabled = false;
-            // }
+            
         }
         
-        public void SetHighlight(bool highlighted)
+        public void SetHighlight(bool highlighted, Color color)
         {
-            _isHighlighted = highlighted;
-
-            if (_lastOutlineSettings.HasValue)
-            {
-                if (_isHighlighted)
-                    UseSettings(_highlightOutline);
-                else
-                    UseSettings(_lastOutlineSettings.Value);
-            }
-            else
-            {
-                _outlinable.enabled = _isHighlighted;
-                
-                if (_isHighlighted)
-                    UseSettings(_highlightOutline);
-            }
+            _outlinable.OutlineParameters.Color = color;
+            _outlinable.enabled = highlighted;
         }
 
         private void UseSettings(OutlineSettings settings)

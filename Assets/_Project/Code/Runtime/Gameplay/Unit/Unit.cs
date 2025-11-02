@@ -60,9 +60,9 @@ namespace Gameplay.Units
             }
         }
 
-        public void SetHighlighted(bool highlighted)
+        public void SetHighlighted(bool highlighted, Color color)
         {
-            _outlineComponent.SetHighlight(highlighted);
+            _outlineComponent.SetHighlight(highlighted, color);
         }
     }
 }

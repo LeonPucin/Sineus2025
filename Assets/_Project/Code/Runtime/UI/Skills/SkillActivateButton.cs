@@ -14,15 +14,16 @@ namespace UI.Skills
         [SerializeField] private Button _useButton;
         [SerializeField] private TMP_Text _alterKey;
         [SerializeField] private Image _icon;
-        [SerializeField] private Image _glow;
-        [SerializeField] private Color _highlightColor = Color.yellow;
+        [SerializeField] private Image _glow; 
         
+        private Color _highlightColor;
         private SkillButtonPresenter _presenter;
         private Color _defaultColor;
 
         public void Initialize(SkillButtonPresenter presenter)
         {
             _defaultColor = _icon.color;
+            _highlightColor = presenter.SkillColor;
             _presenter = presenter;
             _alterKey.text = presenter.AlterKeyName;
 

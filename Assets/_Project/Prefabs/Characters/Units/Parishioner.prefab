@@ -507,7 +507,7 @@ MonoBehaviour:
   outlineParameters:
     enabled: 1
     color: {r: 0.735849, g: 0.07289071, b: 0.16230235, a: 1}
-    dilateShift: 1
+    dilateShift: 0.5
     blurShift: 1
     fillPass:
       shader: {fileID: 0}
