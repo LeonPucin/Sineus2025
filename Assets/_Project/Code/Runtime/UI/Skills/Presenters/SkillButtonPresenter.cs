@@ -29,6 +29,7 @@ namespace UI.Skills.Presenters
         public IReadOnlyReactiveProperty<bool> IsInUse => _isInUse;
         public ReactiveCommand ConfirmCommand { get; }
         public string AlterKeyName { get; }
+        public Sprite Icon => _connectedSkill.Icon;
 
         public SkillButtonPresenter(SkillActivator skillActivator, SkillConfig connectedSkill)
         {

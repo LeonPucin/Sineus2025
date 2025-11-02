@@ -14,6 +14,7 @@ namespace UI.Skills
         [SerializeField] private Button _useButton;
         [SerializeField] private TMP_Text _alterKey;
         [SerializeField] private Image _icon;
+        [SerializeField] private Image _toolIcon;
         [SerializeField] private Color _highlightColor = Color.yellow;
         
         private SkillButtonPresenter _presenter;
@@ -24,6 +25,8 @@ namespace UI.Skills
             _defaultColor = _icon.color;
             _presenter = presenter;
             _alterKey.text = presenter.AlterKeyName;
+
+            _toolIcon.sprite = presenter.Icon;
             
             _presenter.IsInCooldown.Subscribe((isCooldown) => _cooldownRoot.SetActive(isCooldown)).AddTo(this);
             _presenter.CooldownLeftTitle.Subscribe((time) => _cooldownTime.text = time).AddTo(this);

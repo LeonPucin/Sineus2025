@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: skill/0
   _name: 
-  _icon: {fileID: 0}
+  _icon: {fileID: 21300000, guid: e43bacc76aea6420cb5d045ef51002a1, type: 3}
   _description: 
   _cooldown: 6
   _alterKey: 19
