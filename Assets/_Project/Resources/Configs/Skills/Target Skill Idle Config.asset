@@ -16,7 +16,7 @@ MonoBehaviour:
   _name: 
   _icon: {fileID: 21300000, guid: 812823f8f82a9492ca21a709cdf02881, type: 3}
   _description: 
-  _cooldown: 1.5
+  _cooldown: 0.8
   _alterKey: 37
   _skillColor: {r: 0, g: 0.41852576, b: 2.762264, a: 1}
   _targetState: 1

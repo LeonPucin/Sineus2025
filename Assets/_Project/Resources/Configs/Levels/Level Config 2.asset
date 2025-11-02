@@ -16,5 +16,5 @@ MonoBehaviour:
   _name: "\u041C\u0435\u0441\u0441\u0430 II"
   _description: "\u041F\u0440\u0438\u043A\u043E\u043B"
   _quest: {fileID: 11400000, guid: 9733ba46b764f2c4ca74d2bf90ae2500, type: 2}
-  _timeLimit: 60
-  _winThreshold: 0.8
+  _timeLimit: 30
+  _winThreshold: 0.7

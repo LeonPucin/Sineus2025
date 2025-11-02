@@ -113,7 +113,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _distributionDelay: 1
+  _distributionDelay: 2
   _invincibleDelay: 2
   _distributionAmount:
     MinValue: 2
