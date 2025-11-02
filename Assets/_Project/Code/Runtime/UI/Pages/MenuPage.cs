@@ -7,7 +7,7 @@ namespace UI.Pages
     {
         public override void Initialize()
         {
-            SetCanvasState(true);
+            SetCanvasState(false);
         }
 
         public void Open()

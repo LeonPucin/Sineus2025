@@ -35,7 +35,7 @@ namespace UI.Pages.SkillsPage
                 _buttonPresenters.Add(presenter);
             }
             
-            SetCanvasState(true);
+            SetCanvasState(false);
         }
 
         public void Open()

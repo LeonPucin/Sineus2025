@@ -43,7 +43,7 @@ namespace Gameplay.Session
         public void SetupLevel()
         {
             _uiManager.ClosePage<PlayerChoosePage>();
-            _uiManager.OpenPage<StartGamePage>();
+            _uiManager.OpenPage<StartLevelPage>();
             
             var currentSequence = _sessionInfo.CurrentSequence;
             _crowdController.SetupCrowd(currentSequence,
@@ -53,7 +53,7 @@ namespace Gameplay.Session
         
         public void StartLevel()
         {
-            _uiManager.ClosePage<StartGamePage>();
+            _uiManager.ClosePage<StartLevelPage>();
             _uiManager.OpenPage<GameplayPage>();
             
             _mainThreadInputCommander.SwitchMap<CharacterMap>();
@@ -82,7 +82,7 @@ namespace Gameplay.Session
 
             if (!isWin)
             {
-                _rageState.AddAmount(
+                _rageState.RemoveAmount(
                     _difficultyConverter.GetRageAddition(_sessionInfo.CurrentSequence.TotalDifficultyPoints));
             }
 

@@ -2,20 +2,16 @@ using DG.Tweening;
 using DoubleDCore.UI;
 using DoubleDCore.UI.Base;
 using TMPro;
-using UI.LevelInfo;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace UI.Pages
 {
     public class EndSessionPage : MonoPage, IPayloadPage<EndSessionInfo>
     {
         [SerializeField] private TMP_Text _text;
-        [SerializeField] private Slider _slider;
+        [SerializeField] private Image _slider;
         [SerializeField] private Button _closeButton;
-        [SerializeField] private RageView _rageView;
-        
 
         [SerializeField] private string _winText;
         [SerializeField] private string _loseText;
@@ -23,13 +19,11 @@ namespace UI.Pages
         [SerializeField] private float _startDelay = 0.5f;
         
         private IUIManager _uiManager;
-        private DiContainer _diContainer;
 
         [Zenject.Inject]
-        private void Init(IUIManager uiManager, DiContainer diContainer)
+        private void Init(IUIManager uiManager)
         {
             _uiManager = uiManager;
-            _diContainer = diContainer;
         }
 
         public void Open(EndSessionInfo context)
@@ -39,8 +33,8 @@ namespace UI.Pages
             _text.text = context.IsSuccess ? _winText : _loseText;
             _slider.gameObject.SetActive(!context.IsSuccess);
             
-            _slider.value = context.OldValue;
-            _slider.DOValue(context.NewValue, _duration).SetEase(Ease.OutCubic).SetDelay(_startDelay);
+            _slider.fillAmount = context.OldValue;
+            _slider.DOFillAmount(context.NewValue, _duration).SetEase(Ease.OutCubic).SetDelay(_startDelay);
             
             _closeButton.onClick.AddListener(OnCloseRequested);
         }
@@ -54,7 +48,6 @@ namespace UI.Pages
         public override void Initialize()
         {
             SetCanvasState(false);
-            _rageView.Initialize(_diContainer.Instantiate<RageViewPresenter>());
         }
 
         public override void Close()

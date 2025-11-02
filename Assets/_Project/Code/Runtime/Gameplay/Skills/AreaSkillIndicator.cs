@@ -16,13 +16,20 @@ namespace Gameplay.Skills
             _useConfirmator.AreaChecked += OnAreaChecked;
             _useConfirmator.Cancelled += OnCancelled;
             _useConfirmator.Confirmed += OnConfirmed;
+            _useConfirmator.Started += OnConfirmStarted;
         }
-
+        
         private void OnDisable()
         {
             _useConfirmator.AreaChecked -= OnAreaChecked;
             _useConfirmator.Cancelled -= OnCancelled;
             _useConfirmator.Confirmed -= OnConfirmed;
+            _useConfirmator.Started -= OnConfirmStarted;
+        }
+        
+        private void OnConfirmStarted()
+        {
+            _indicatorObject.SetActive(false);
         }
         
         private void OnConfirmed(SkillConfig arg1, IEnumerable<Unit> arg2)

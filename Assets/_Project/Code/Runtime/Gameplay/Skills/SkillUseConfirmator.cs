@@ -20,6 +20,7 @@ namespace Gameplay.Skills
 
         public event Action<SkillConfig, IEnumerable<Unit>> Confirmed;
         public event Action Cancelled;
+        public event Action Started;
         public event Action<bool, Vector3, float> AreaChecked;
 
         [Zenject.Inject]
@@ -46,8 +47,12 @@ namespace Gameplay.Skills
 
         public void ConfirmUse(SkillConfig skill)
         {
+            if (_currentSkill != null)
+                DisableLastHighlight();
+            
             _currentSkill = skill;
             _lastResult = null;
+            Started?.Invoke();
         }
         
         public void CancelConfirmation()

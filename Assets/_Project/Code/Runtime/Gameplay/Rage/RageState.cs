@@ -4,14 +4,15 @@ namespace Gameplay.Rage
 {
     public class RageState
     {
-        public float Amount { get; private set; } = 0;
+        public float Amount { get; private set; } = 1;
         
         public event Action<float, float> AmountChanged;
         
-        public void AddAmount(float amount)
+        public void RemoveAmount(float amount)
         {
             float previousAmount = Amount;
-            Amount += amount;
+            Amount -= amount;
+            Amount = Math.Max(Amount, 0);
             AmountChanged?.Invoke(Amount, previousAmount);
         }
     }

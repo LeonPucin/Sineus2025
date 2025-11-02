@@ -41,7 +41,7 @@ namespace UI.Pages
                 levelInfoViewPresenter.AddMovementRequest.Execute(config);
             }).AddTo(this);
             
-            SetCanvasState(true);
+            SetCanvasState(false);
         }
 
         public void Open()

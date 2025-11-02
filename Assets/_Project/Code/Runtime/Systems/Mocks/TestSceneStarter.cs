@@ -27,7 +27,7 @@ namespace Systems.Mocks
         
         private void Start()
         {
-            _uiManager.OpenPage<PlayerChoosePage>();
+            _uiManager.OpenPage<StartGamePage>();
             
             // var movementSequence = _sessionInfo.CurrentSequence;
             //

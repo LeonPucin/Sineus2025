@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000015258789, y: 111.3}
+  m_AnchoredPosition: {x: -0.000015258789, y: 70.9}
   m_SizeDelta: {x: 45.016598, y: 88.059006}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1458279424469685007
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_text: Q
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4431e87333c584bce803b4f1fb13023f, type: 2}
-  m_sharedMaterial: {fileID: 7833239786471370286, guid: 4431e87333c584bce803b4f1fb13023f, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a77f7bff4964f7b4eb9a445c67d81328, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 148630626586724715}
   - component: {fileID: 6096794124368335364}
   m_Layer: 5
-  m_Name: TempIcon
+  m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3275723558389536618}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -566,8 +566,8 @@ MonoBehaviour:
   _cooldownRoot: {fileID: 1229584963612422062}
   _useButton: {fileID: 1792123349514426958}
   _alterKey: {fileID: 2233137761172851511}
-  _icon: {fileID: 6096794124368335364}
-  _toolIcon: {fileID: 8698110632001286079}
+  _icon: {fileID: 8698110632001286079}
+  _glow: {fileID: 6096794124368335364}
   _highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &8298697331942626536
 GameObject:
