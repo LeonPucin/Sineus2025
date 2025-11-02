@@ -23,5 +23,10 @@
         {
             return difficultyPoints >= _config.DistributionDifficultyThreshold;
         }
+        
+        public float GetRageAddition(int difficultyPoints)
+        {
+            return _config.GetSettings(difficultyPoints).RageAddition;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Game.Input;
 using Gameplay.Quests;
+using Gameplay.Rage;
 using Gameplay.Session;
 using Gameplay.Skills;
 using Gameplay.UnitCrowd;
@@ -26,6 +27,7 @@ namespace Core.DI
             Container.Bind<AlterKeysListener>().FromComponentInHierarchy().AsSingle();
 
             Container.Bind<SessionInfo>().AsSingle();
+            Container.Bind<RageState>().AsSingle();
             Container.Bind<StartLevelQuestConditionChecker>().AsSingle();
 
             Container.Bind<LevelTimer>().AsSingle();
@@ -36,6 +38,7 @@ namespace Core.DI
             
             Container.Bind<CrowdMovementsController>().FromNew().AsSingle();
             Container.Bind<CrowdController>().FromNew().AsSingle();
+            Container.Bind<WinChecker>().AsSingle();
             Container.Bind<LevelStarter>().AsSingle();
         }
     }

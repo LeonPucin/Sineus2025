@@ -26,42 +26,62 @@ MonoBehaviour:
     m_Values:
     - CrowdSize: 7
       StartBrokenPart: 0
+      RageAddition: 0.06
     - CrowdSize: 7
       StartBrokenPart: 0
+      RageAddition: 0.06
     - CrowdSize: 7
       StartBrokenPart: 0
+      RageAddition: 0.06
     - CrowdSize: 7
       StartBrokenPart: 0
+      RageAddition: 0.06
     - CrowdSize: 12
       StartBrokenPart: 0.2
+      RageAddition: 0.05
     - CrowdSize: 12
       StartBrokenPart: 0.2
+      RageAddition: 0.05
     - CrowdSize: 12
       StartBrokenPart: 0.2
+      RageAddition: 0.05
     - CrowdSize: 12
       StartBrokenPart: 0.2
+      RageAddition: 0.05
     - CrowdSize: 16
       StartBrokenPart: 0.2
+      RageAddition: 0.05
     - CrowdSize: 16
       StartBrokenPart: 0.2
+      RageAddition: 0.04
     - CrowdSize: 17
       StartBrokenPart: 0.35
+      RageAddition: 0.04
     - CrowdSize: 16
       StartBrokenPart: 0.35
+      RageAddition: 0.04
     - CrowdSize: 20
       StartBrokenPart: 0.35
+      RageAddition: 0.04
     - CrowdSize: 20
       StartBrokenPart: 0.35
+      RageAddition: 0.03
     - CrowdSize: 20
       StartBrokenPart: 0.35
+      RageAddition: 0.03
     - CrowdSize: 20
       StartBrokenPart: 0.35
+      RageAddition: 0.03
     - CrowdSize: 20
       StartBrokenPart: 0.5
+      RageAddition: 0.02
     - CrowdSize: 20
       StartBrokenPart: 0.5
+      RageAddition: 0.02
     - CrowdSize: 20
       StartBrokenPart: 0.5
+      RageAddition: 0.01
     - CrowdSize: 20
       StartBrokenPart: 0.5
+      RageAddition: 0.01
   _distributionDifficultyThreshold: 10

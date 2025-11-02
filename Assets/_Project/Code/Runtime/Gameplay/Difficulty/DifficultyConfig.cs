@@ -24,5 +24,6 @@ namespace Gameplay.UnitCrowd
     {
         public int CrowdSize;
         [Range(0, 1)] public float StartBrokenPart;
+        [Range(0, 1)] public float RageAddition;
     }
 }
